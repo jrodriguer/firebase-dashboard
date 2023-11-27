@@ -4,6 +4,22 @@ import { BehaviorSubject, Observable, Observer } from 'rxjs';
 import { User } from '../../models/user.model';
 import { HttpClient } from '@angular/common/http';
 
+const BASE_URI_DES = `https://backend-des.wenea.site/api`;
+const BASE_URI_PRE = `https://backend-pre.wenea.site/api`;
+const BASE_URI_PRO = `https://backend-pro.wenea.site/api`;
+const BASE_URI_DEHESA = `https://backend-dehesa.wenea.site/api`;
+
+const WENEA_API_VERSION = 'v7';
+const USER_ENDPOINT = `${BASE_URI}/${WENEA_API_VERSION}/user`;
+
+const WENEA_USER_LOGIN = `${USER_ENDPOINT}/login/`;
+const WENEA_USER_PROFILE = `${USER_ENDPOINT}/info/`;
+
+const BASE_REST_HEADER = new HttpHeaders({
+	'Content-Type': 'application/json',
+	'X-App-Version': WENEA_VERSION,
+});
+
 @Injectable({
 	providedIn: 'root',
 })
@@ -13,31 +29,111 @@ export class AuthService {
 	public user$: Observable<User | null> = this.userSubject.asObservable();
 
 	private userFCMToken: string = '';
+	private userToken: string = '';
 
 	constructor(private http: HttpClient) {}
 
 	/**
-	 * Login #1 - Standard login with user & password
+	 * Login #1 - Standard login with user & password.
 	 *
-	 * @param user user email
-	 * @param pass user password
+	 * @param user user email.
+	 * @param pass user password.
 	 *
-	 * @returns operation result
+	 * @returns operation result.
 	 */
 	public login(user: string, pass: string): Observable<{}> {
 		return this.http.post<{}>(
-			'https://backend-dehesa.wenea.site/api/v7/user/login/',
+			WENEA_USER_LOGIN,
 			{
 				email: user,
 				password: pass,
 			},
-			{
-				headers: {
-					'Content-Type': 'application/json',
-					'X-App-Version': '3.0.4',
-				},
-			}
+			{ headers: BASE_REST_HEADER }
 		);
+	}
+
+	/**
+	 * Login #2 - Store user token.
+	 *
+	 * @param token - token present.
+	 *
+	 * @returns observer with token.
+	 */
+	loginToken(token: string): Observable<{}> {
+		return new Observable((observer: Observer<{}>) => {
+			this.getUserInfo().subscribe(
+				res => {
+					res = { result: true };
+					observer.next(res);
+					observer.complete();
+				},
+				err => {
+					if (err.status != 400) {
+						// invalid token
+						observer.error(err);
+					} else {
+						let res = { result: true }; // token is valid but user has no profile
+						observer.next(res);
+						observer.complete();
+					}
+				}
+			);
+		});
+	}
+
+	/**
+	 * sendFCMToken - Send FCM token to backend.
+	 *
+	 * @returns Observable with operation result.
+	 */
+	sendFCMToken(): Observable<any> {
+		return new Observable((observer: Observer<{}>) => {});
+	}
+
+	/**
+	 * getUserInfo - Request all user info & fill userGroup attribute.
+	 *
+	 * @returns Observable with request result.
+	 */
+	getUserInfo(): Observable<{}> {
+		return new Observable((observer: Observer<{}>) => {
+			this.http.post<{}>(WENEA_USER_PROFILE, { headers: this.buildSelfTokenHeader() });
+		});
+	}
+
+	/**
+	 * buildTokenHeader - Build a header with a given token.
+	 *
+	 * @param token backend token.
+	 *
+	 * @returns header with token.
+	 */
+	public buildTokenHeader(token: string): HttpHeaders {
+		let header = new HttpHeaders({
+			'Content-Type': 'application/json',
+			Authorization: 'Token ' + token,
+			'X-App-Version': WENEA_VERSION,
+		});
+		return header;
+	}
+
+	/**
+	 * isLoggedIn -  Check if user is currently logged in
+	 *
+	 * @returns bool flag.
+	 */
+	public isLoggedIn(): boolean {
+		return this.userToken != undefined;
+	}
+
+	buildSelfTokenHeader(): HttpHeaders {
+		let header: HttpHeaders;
+		if (this.isLoggedIn()) {
+			header = this.buildTokenHeader(this.userToken);
+		} else {
+			header = BASE_REST_HEADER;
+		}
+		return header;
 	}
 }
 
