@@ -8,7 +8,6 @@ import { ModalDialogComponent } from '../../components/modal-dialog/modal-dialog
 import { User } from '../../../models/user.model';
 import { Address, UserDoc } from '../../../models/ddbb.model';
 import { UserService } from '../../services/user.service';
-import { GeocodingService } from '../../services/geocoding.service';
 
 @Component({
   selector: 'app-dashboard',
