@@ -11,7 +11,7 @@ import { FieldErrorPrintComponent } from './field-error-print/field-error-print.
     AlertComponent,
     PlaceholderDirective,
     DropdownDirective,
-    FieldErrorPrintComponent
+    FieldErrorPrintComponent,
   ],
   imports: [CommonModule],
   exports: [
@@ -19,8 +19,8 @@ import { FieldErrorPrintComponent } from './field-error-print/field-error-print.
     PlaceholderDirective,
     DropdownDirective,
     FieldErrorPrintComponent,
-    CommonModule
+    CommonModule,
   ],
-  entryComponents: [AlertComponent]
+  entryComponents: [AlertComponent],
 })
 export class SharedModule {}

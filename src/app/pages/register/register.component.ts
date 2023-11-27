@@ -3,7 +3,7 @@ import {
   ComponentFactoryResolver,
   ViewChild,
   OnDestroy,
-  OnInit
+  OnInit,
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -18,7 +18,7 @@ import { UserDoc } from '../../../models/ddbb.model';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
+  styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent implements OnInit, OnDestroy {
   public registerForm!: FormGroup;
@@ -53,8 +53,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
         street: [''],
         city: ['', [Validators.pattern('^[a-zA-Z]+$')]],
         zip: ['', [Validators.pattern(/^[0-9]{5}$/)]],
-        province: ['']
-      })
+        province: [''],
+      }),
     });
   }
 
@@ -71,7 +71,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
         () => {
           this._setUserDoc(formValue);
         },
-        (err) => this._showErrorAlert(err)
+        err => this._showErrorAlert(err)
       );
   }
 

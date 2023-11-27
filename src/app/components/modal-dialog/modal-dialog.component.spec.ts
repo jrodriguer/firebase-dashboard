@@ -12,7 +12,7 @@ describe('ModalDialogComponent', () => {
     await TestBed.configureTestingModule({
       imports: [ReactiveFormsModule, NgbModule],
       declarations: [ModalDialogComponent],
-      providers: [NgbActiveModal]
+      providers: [NgbActiveModal],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ModalDialogComponent);

@@ -5,7 +5,7 @@ import { User } from '../../models/user.model';
 import { Address, UserDoc } from '../../models/ddbb.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
   public tokenExpirationTimer: any;
@@ -14,9 +14,9 @@ export class AuthService {
 
   constructor() {}
 
-  signIn(email: string, password: string) { }
+  signIn(email: string, password: string) {}
 
-  logout() { }
+  logout() {}
 
   private handleError(error: any): Promise<never> {
     console.error('An error occurred:', error);

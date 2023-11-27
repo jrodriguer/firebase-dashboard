@@ -14,6 +14,6 @@ export const environment = {
     storageBucket: 'wenea-thechnical.appspot.com',
     messagingSenderId: '449693082463',
     appId: '1:449693082463:web:045a2f70101f0b601b4cea',
-    measurementId: 'G-KZM6M2T4V1'
-  }
+    measurementId: 'G-KZM6M2T4V1',
+  },
 };

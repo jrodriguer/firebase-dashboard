@@ -13,7 +13,7 @@ import { SharedModule } from '../../shared/shared.module';
     FormsModule,
     ReactiveFormsModule,
     SharedModule,
-    RouterModule.forChild([{ path: '', component: RegisterComponent }])
-  ]
+    RouterModule.forChild([{ path: '', component: RegisterComponent }]),
+  ],
 })
 export class RegisterModule {}

@@ -10,11 +10,9 @@
           class="form-control"
           id="name"
           formControlName="name"
-          placeholder="Name"
-        />
+          placeholder="Name" />
         <app-field-error-print
-          [control]="registerForm.controls['name']"
-        ></app-field-error-print>
+          [control]="registerForm.controls['name']"></app-field-error-print>
         <label for="name">Name</label>
       </div>
       <div class="form-floating">
@@ -24,11 +22,9 @@
           id="email"
           formControlName="email"
           aria-describedby="emailHelp"
-          placeholder="Enter email"
-        />
+          placeholder="Enter email" />
         <app-field-error-print
-          [control]="registerForm.controls['email']"
-        ></app-field-error-print>
+          [control]="registerForm.controls['email']"></app-field-error-print>
         <label for="email">Email address</label>
       </div>
 
@@ -39,11 +35,9 @@
           id="password"
           formControlName="password"
           minlength="6"
-          placeholder="Password"
-        />
+          placeholder="Password" />
         <app-field-error-print
-          [control]="registerForm.controls['password']"
-        ></app-field-error-print>
+          [control]="registerForm.controls['password']"></app-field-error-print>
         <label for="password">Password</label>
       </div>
       <div class="address-container" formGroupName="address">
@@ -53,8 +47,7 @@
             class="form-control"
             id="street"
             formControlName="street"
-            placeholder="Street"
-          />
+            placeholder="Street" />
           <label for="street">Street</label>
         </div>
         <div class="form-floating">
@@ -63,11 +56,11 @@
             class="form-control"
             id="city"
             formControlName="city"
-            placeholder="City"
-          />
+            placeholder="City" />
           <app-field-error-print
-            [control]="registerForm.controls['address'].get('city')"
-          ></app-field-error-print>
+            [control]="
+              registerForm.controls['address'].get('city')
+            "></app-field-error-print>
           <label for="city">City</label>
         </div>
         <div class="form-floating">
@@ -76,11 +69,11 @@
             class="form-control"
             id="zip"
             formControlName="zip"
-            placeholder="Zip"
-          />
+            placeholder="Zip" />
           <app-field-error-print
-            [control]="registerForm.controls['address'].get('zip')"
-          ></app-field-error-print>
+            [control]="
+              registerForm.controls['address'].get('zip')
+            "></app-field-error-print>
           <label for="floatingInput">Zip</label>
         </div>
         <div class="form-floating">
@@ -95,8 +88,7 @@
       <button
         class="welcome-btn w-100 btn btn-lg btn-primary"
         type="submit"
-        [disabled]="registerForm.invalid"
-      >
+        [disabled]="registerForm.invalid">
         Register
       </button>
     </form>

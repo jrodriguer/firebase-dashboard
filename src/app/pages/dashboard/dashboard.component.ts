@@ -12,7 +12,7 @@ import { UserService } from '../../services/user.service';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit, OnDestroy {
   public userLogued$!: Observable<User | null>;
@@ -33,11 +33,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
   ngOnInit() {
     // consume for Subject
     this.userLogued$ = this.authService.user$.pipe(
-      filter((user) => !!user),
+      filter(user => !!user),
       takeUntil(this.destroyed$)
     );
 
-    this.userLogued$.subscribe((user) => {
+    this.userLogued$.subscribe(user => {
       if (user && user.address) {
         this.name = user.name;
         this.city = user.address.city;
@@ -64,7 +64,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
           return {
             ...user,
             order,
-            addressRe: `${user.address.street}, ${user.address.city}`
+            addressRe: `${user.address.street}, ${user.address.city}`,
           };
         });
       });
@@ -89,13 +89,13 @@ export class DashboardComponent implements OnInit, OnDestroy {
   onSettingsUser() {
     const modalRef = this.modalService.open(ModalDialogComponent, {
       centered: true,
-      backdrop: 'static'
+      backdrop: 'static',
     });
     (modalRef.componentInstance as ModalDialogComponent).udpateCredentials =
       true;
 
     modalRef.result.then(
-      (result) => {
+      result => {
         // this.authService.updateCredentials(result.email, result.password).then(
         //   () => {
         //     this.router.navigate(['login']);
@@ -104,7 +104,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
         // );
         this.authService.logout();
       },
-      (reason) => {
+      reason => {
         console.info(`Dismissed with: ${reason}`);
       }
     );
@@ -113,7 +113,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   onInfoUser(selected: UserDoc) {
     const modalRef = this.modalService.open(ModalDialogComponent, {
       centered: true,
-      backdrop: 'static'
+      backdrop: 'static',
     });
     (modalRef.componentInstance as ModalDialogComponent).user = selected;
   }

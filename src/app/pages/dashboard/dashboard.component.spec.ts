@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import {
   HttpClientTestingModule,
-  HttpTestingController
+  HttpTestingController,
 } from '@angular/common/http/testing';
 import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -11,7 +11,7 @@ import { environment } from '../../../environments/environment';
 class MockNgbModalRef {
   componentInstance = {
     prompt: undefined,
-    title: undefined
+    title: undefined,
   };
   result: Promise<any> = new Promise((resolve, reject) => resolve(true));
 }
@@ -24,12 +24,8 @@ describe('DashboardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
-        HttpClientTestingModule,
-        HttpClientTestingModule,
-        NgbModule,
-      ],
-      declarations: [DashboardComponent]
+      imports: [HttpClientTestingModule, HttpClientTestingModule, NgbModule],
+      declarations: [DashboardComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(DashboardComponent);

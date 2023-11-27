@@ -7,6 +7,6 @@ import { ModalDialogComponent } from './modal-dialog.component';
 
 @NgModule({
   declarations: [ModalDialogComponent],
-  imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule]
+  imports: [CommonModule, NgbModule, FormsModule, ReactiveFormsModule],
 })
 export class ModalDialogModule {}

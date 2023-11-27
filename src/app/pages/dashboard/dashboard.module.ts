@@ -12,7 +12,7 @@ import { ModalDialogModule } from '../../components/modal-dialog/modal-dialog.mo
     CommonModule,
     SharedModule,
     RouterModule.forChild([{ path: '', component: DashboardComponent }]),
-    ModalDialogModule
-  ]
+    ModalDialogModule,
+  ],
 })
 export class DashboardModule {}

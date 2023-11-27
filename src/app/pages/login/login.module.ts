@@ -12,7 +12,7 @@ import { SharedModule } from '../../shared/shared.module';
     CommonModule,
     FormsModule,
     SharedModule,
-    RouterModule.forChild([{ path: '', component: LoginComponent }])
-  ]
+    RouterModule.forChild([{ path: '', component: LoginComponent }]),
+  ],
 })
 export class LoginModule {}

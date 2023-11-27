@@ -2,7 +2,7 @@ import {
   Component,
   ComponentFactoryResolver,
   ViewChild,
-  OnDestroy
+  OnDestroy,
 } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -15,7 +15,7 @@ import { PlaceholderDirective } from '../../shared/placeholder/placeholder.direc
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnDestroy {
   private destroyed$ = new Subject<void>();
@@ -41,7 +41,7 @@ export class LoginComponent implements OnDestroy {
         console.log('entra');
         this.router.navigate(['dashboard']);
       },
-      (err) => this._showErrorAlert(err)
+      err => this._showErrorAlert(err)
     );
   }
 

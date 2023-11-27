@@ -7,7 +7,7 @@ import { environment } from '../../environments/environment';
 import { UserDoc } from '../../models/ddbb.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserService {
   constructor(private http: HttpClient) {}
@@ -15,7 +15,7 @@ export class UserService {
   private buildHeaders() {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${environment.apiUrl}`
+      Authorization: `Bearer ${environment.apiUrl}`,
     });
     return headers;
   }
@@ -24,7 +24,7 @@ export class UserService {
     const headers = this.buildHeaders();
     return this.http
       .get<UserDoc[]>(`${environment.apiUrl}/users`, {
-        headers
+        headers,
       })
       .pipe(catchError(this.handleError));
   }
@@ -33,7 +33,7 @@ export class UserService {
     const headers = this.buildHeaders();
     return this.http
       .get<UserDoc>(`${environment.apiUrl}/user/${id}`, {
-        headers
+        headers,
       })
       .pipe(catchError(this.handleError));
   }
@@ -42,7 +42,7 @@ export class UserService {
     const headers = this.buildHeaders();
     return this.http
       .post<UserDoc>(`${environment.apiUrl}/user`, user, {
-        headers
+        headers,
       })
       .pipe(catchError(this.handleError));
   }
@@ -51,7 +51,7 @@ export class UserService {
     const headers = this.buildHeaders();
     return this.http
       .put<UserDoc>(`${environment.apiUrl}/user/${id}`, user, {
-        headers
+        headers,
       })
       .pipe(catchError(this.handleError));
   }

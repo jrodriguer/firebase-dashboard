@@ -9,12 +9,9 @@ import { environment } from '../environments/environment';
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule,
-        HttpClientTestingModule,
-      ],
+      imports: [RouterTestingModule, HttpClientTestingModule],
       providers: [AuthService],
-      declarations: [AppComponent]
+      declarations: [AppComponent],
     }).compileComponents();
   });
 

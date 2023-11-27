@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import {
   HttpClientTestingModule,
-  HttpTestingController
+  HttpTestingController,
 } from '@angular/common/http/testing';
 import { FormsModule } from '@angular/forms';
 
@@ -14,12 +14,8 @@ describe('LoginComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
-        HttpClientTestingModule,
-        HttpClientTestingModule,
-        FormsModule
-      ],
-      declarations: [LoginComponent]
+      imports: [HttpClientTestingModule, HttpClientTestingModule, FormsModule],
+      declarations: [LoginComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(LoginComponent);

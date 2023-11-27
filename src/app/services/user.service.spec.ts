@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import {
   HttpClientTestingModule,
-  HttpTestingController
+  HttpTestingController,
 } from '@angular/common/http/testing';
 
 import { environment } from '../../environments/environment';
@@ -15,7 +15,7 @@ describe('UserService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [UserService]
+      providers: [UserService],
     });
 
     service = TestBed.inject(UserService);
@@ -41,13 +41,13 @@ describe('UserService', () => {
             street: '',
             zip: '',
             city: '',
-            province: ''
+            province: '',
           },
-          name: 'User 1'
-        }
+          name: 'User 1',
+        },
       ];
 
-      service.getUsers().subscribe((users) => {
+      service.getUsers().subscribe(users => {
         expect(users.length).toBe(1);
         expect(users).toEqual(mockUsers);
       });
