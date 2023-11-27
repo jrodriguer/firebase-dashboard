@@ -7,20 +7,15 @@ import { AlertComponent } from './alert/alert.component';
 import { FieldErrorPrintComponent } from './field-error-print/field-error-print.component';
 
 @NgModule({
-  declarations: [
-    AlertComponent,
-    PlaceholderDirective,
-    DropdownDirective,
-    FieldErrorPrintComponent,
-  ],
-  imports: [CommonModule],
-  exports: [
-    AlertComponent,
-    PlaceholderDirective,
-    DropdownDirective,
-    FieldErrorPrintComponent,
-    CommonModule,
-  ],
-  // entryComponents: [AlertComponent],
+	declarations: [AlertComponent, PlaceholderDirective, DropdownDirective, FieldErrorPrintComponent],
+	imports: [CommonModule],
+	exports: [
+		AlertComponent,
+		PlaceholderDirective,
+		DropdownDirective,
+		FieldErrorPrintComponent,
+		CommonModule,
+	],
+	// entryComponents: [AlertComponent],
 })
 export class SharedModule {}

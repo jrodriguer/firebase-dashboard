@@ -6,23 +6,23 @@ import { AuthGuard } from './auth.guard';
 import { AuthService } from './auth.service';
 
 function fakeRouterState(url: string): RouterStateSnapshot {
-  return {
-    url,
-  } as RouterStateSnapshot;
+	return {
+		url,
+	} as RouterStateSnapshot;
 }
 
 // When AuthGuard guards a CanActivate hook, access to the route is rejected
 describe('AuthGuard', () => {
-  let guard: AuthGuard;
-  let routerSpy: jasmine.SpyObj<Router>;
-  let serviceStub: Partial<AuthService>;
+	let guard: AuthGuard;
+	let routerSpy: jasmine.SpyObj<Router>;
+	let serviceStub: Partial<AuthService>;
 
-  beforeEach(() => {
-    serviceStub = {};
-    guard = new AuthGuard(serviceStub as AuthService, routerSpy);
-  });
+	beforeEach(() => {
+		serviceStub = {};
+		guard = new AuthGuard(serviceStub as AuthService, routerSpy);
+	});
 
-  it('should be created', () => {
-    expect(guard).toBeTruthy();
-  });
+	it('should be created', () => {
+		expect(guard).toBeTruthy();
+	});
 });

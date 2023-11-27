@@ -7,13 +7,13 @@ import { RegisterComponent } from './register.component';
 import { SharedModule } from '../../shared/shared.module';
 
 @NgModule({
-  declarations: [RegisterComponent],
-  imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    SharedModule,
-    RouterModule.forChild([{ path: '', component: RegisterComponent }]),
-  ],
+	declarations: [RegisterComponent],
+	imports: [
+		CommonModule,
+		FormsModule,
+		ReactiveFormsModule,
+		SharedModule,
+		RouterModule.forChild([{ path: '', component: RegisterComponent }]),
+	],
 })
 export class RegisterModule {}

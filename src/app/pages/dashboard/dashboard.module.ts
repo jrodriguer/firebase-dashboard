@@ -7,12 +7,12 @@ import { DashboardComponent } from './dashboard.component';
 import { ModalDialogModule } from '../../components/modal-dialog/modal-dialog.module';
 
 @NgModule({
-  declarations: [DashboardComponent],
-  imports: [
-    CommonModule,
-    SharedModule,
-    RouterModule.forChild([{ path: '', component: DashboardComponent }]),
-    ModalDialogModule,
-  ],
+	declarations: [DashboardComponent],
+	imports: [
+		CommonModule,
+		SharedModule,
+		RouterModule.forChild([{ path: '', component: DashboardComponent }]),
+		ModalDialogModule,
+	],
 })
 export class DashboardModule {}

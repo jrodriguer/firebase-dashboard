@@ -8,49 +8,48 @@ import { Subject } from 'rxjs';
 import { PlaceholderDirective } from '../../shared/placeholder/placeholder.directive';
 
 @Component({
-  standalone: true,
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss'],
+	standalone: true,
+	selector: 'app-register',
+	templateUrl: './register.component.html',
+	styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent implements OnInit, OnDestroy {
-  public registerForm!: FormGroup;
-  private destroyed$ = new Subject<void>();
-  public provinces = [{ name: 'Madrid', code: 'M ' }];
-  @ViewChild(PlaceholderDirective) alertHost: PlaceholderDirective =
-    {} as PlaceholderDirective;
+	public registerForm!: FormGroup;
+	private destroyed$ = new Subject<void>();
+	public provinces = [{ name: 'Madrid', code: 'M ' }];
+	@ViewChild(PlaceholderDirective) alertHost: PlaceholderDirective = {} as PlaceholderDirective;
 
-  constructor(
-    // private authService: AuthService,
-    // private userService: UserService,
-    private formBuilder: FormBuilder
-    // private router: Router,
-  ) {}
+	constructor(
+		// private authService: AuthService,
+		// private userService: UserService,
+		private formBuilder: FormBuilder
+		// private router: Router,
+	) {}
 
-  ngOnInit() {
-    this._initForm();
-  }
+	ngOnInit() {
+		this._initForm();
+	}
 
-  ngOnDestroy() {
-    this.destroyed$.next();
-    this.destroyed$.complete();
-  }
+	ngOnDestroy() {
+		this.destroyed$.next();
+		this.destroyed$.complete();
+	}
 
-  private _initForm() {
-    this.registerForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
-      name: ['', Validators.required],
-      address: this.formBuilder.group({
-        street: [''],
-        city: ['', [Validators.pattern('^[a-zA-Z]+$')]],
-        zip: ['', [Validators.pattern(/^[0-9]{5}$/)]],
-        province: [''],
-      }),
-    });
-  }
+	private _initForm() {
+		this.registerForm = this.formBuilder.group({
+			email: ['', [Validators.required, Validators.email]],
+			password: ['', [Validators.required, Validators.minLength(6)]],
+			name: ['', Validators.required],
+			address: this.formBuilder.group({
+				street: [''],
+				city: ['', [Validators.pattern('^[a-zA-Z]+$')]],
+				zip: ['', [Validators.pattern(/^[0-9]{5}$/)]],
+				province: [''],
+			}),
+		});
+	}
 
-  onSubmit() {
-    // const formValue: UserDoc = this.registerForm.value;
-  }
+	onSubmit() {
+		// const formValue: UserDoc = this.registerForm.value;
+	}
 }

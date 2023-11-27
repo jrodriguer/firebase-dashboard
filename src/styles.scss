@@ -3,14 +3,14 @@
 @import './assets/styles/form-style.scss';
 
 body {
-  font-family: 'Proxima Nova', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	font-family: 'Proxima Nova', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 .welcome-btn {
-  background-color: #0275d8;
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-  &:hover {
-    background-color: #01549b;
-    cursor: pointer;
-  }
+	background-color: #0275d8;
+	transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+	&:hover {
+		background-color: #01549b;
+		cursor: pointer;
+	}
 }

@@ -8,21 +8,19 @@ import { Subject } from 'rxjs';
 import { PlaceholderDirective } from '../../shared/placeholder/placeholder.directive';
 
 @Component({
-  standalone: true,
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
+	standalone: true,
+	selector: 'app-login',
+	templateUrl: './login.component.html',
+	styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnDestroy {
-  private destroyed$ = new Subject<void>();
-  @ViewChild(PlaceholderDirective) alertHost: PlaceholderDirective =
-    {} as PlaceholderDirective;
+	private destroyed$ = new Subject<void>();
+	@ViewChild(PlaceholderDirective) alertHost: PlaceholderDirective = {} as PlaceholderDirective;
 
-  constructor() // private router: Router, // private authService: AuthService,
-  {}
+	constructor() {} // private router: Router, // private authService: AuthService,
 
-  ngOnDestroy() {
-    this.destroyed$.next();
-    this.destroyed$.complete();
-  }
+	ngOnDestroy() {
+		this.destroyed$.next();
+		this.destroyed$.complete();
+	}
 }

@@ -14,25 +14,25 @@ import { DashboardComponent } from './dashboard.component';
 // }
 
 describe('DashboardComponent', () => {
-  let component: DashboardComponent;
-  let fixture: ComponentFixture<DashboardComponent>;
-  // let ngbModal: NgbModal;
-  // let mockModalRef: MockNgbModalRef = new MockNgbModalRef();
+	let component: DashboardComponent;
+	let fixture: ComponentFixture<DashboardComponent>;
+	// let ngbModal: NgbModal;
+	// let mockModalRef: MockNgbModalRef = new MockNgbModalRef();
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, HttpClientTestingModule, NgbModule],
-      declarations: [DashboardComponent],
-    }).compileComponents();
+	beforeEach(async () => {
+		await TestBed.configureTestingModule({
+			imports: [HttpClientTestingModule, HttpClientTestingModule, NgbModule],
+			declarations: [DashboardComponent],
+		}).compileComponents();
 
-    fixture = TestBed.createComponent(DashboardComponent);
-    component = fixture.componentInstance;
-    // ngbModal = TestBed.get(NgbModal);
+		fixture = TestBed.createComponent(DashboardComponent);
+		component = fixture.componentInstance;
+		// ngbModal = TestBed.get(NgbModal);
 
-    fixture.detectChanges();
-  });
+		fixture.detectChanges();
+	});
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+	it('should create', () => {
+		expect(component).toBeTruthy();
+	});
 });
