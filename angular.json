@@ -65,22 +65,22 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "firebase-dashboard:build:production"
+              "buildTarget": "firebase-dashboard:build:production"
             },
             "development": {
-              "browserTarget": "firebase-dashboard:build:development"
+              "buildTarget": "firebase-dashboard:build:development"
             }
           },
           "defaultConfiguration": "development",
           "options": {
-            "browserTarget": "firebase-dashboard:build",
-            "proxyConfig": "src/proxy.conf.json"
+            "proxyConfig": "src/proxy.conf.json",
+            "buildTarget": "firebase-dashboard:build"
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "firebase-dashboard:build"
+            "buildTarget": "firebase-dashboard:build"
           }
         },
         "test": {
