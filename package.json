@@ -8,7 +8,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "lint": "eslint . --ext .ts",
+    "lint": "eslint src/",
     "prettier": "npx prettier --write ."
   },
   "private": true,
