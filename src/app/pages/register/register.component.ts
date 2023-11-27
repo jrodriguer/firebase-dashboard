@@ -1,9 +1,4 @@
-import {
-  Component,
-  ViewChild,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
+import { Component, ViewChild, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 // import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
@@ -28,7 +23,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   constructor(
     // private authService: AuthService,
     // private userService: UserService,
-    private formBuilder: FormBuilder,
+    private formBuilder: FormBuilder
     // private router: Router,
   ) {}
 

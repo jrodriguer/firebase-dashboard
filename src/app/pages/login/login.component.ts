@@ -1,8 +1,4 @@
-import {
-  Component,
-  ViewChild,
-  OnDestroy,
-} from '@angular/core';
+import { Component, ViewChild, OnDestroy } from '@angular/core';
 // import { NgForm } from '@angular/forms';
 // import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
@@ -22,10 +18,8 @@ export class LoginComponent implements OnDestroy {
   @ViewChild(PlaceholderDirective) alertHost: PlaceholderDirective =
     {} as PlaceholderDirective;
 
-  constructor(
-    // private authService: AuthService,
-    // private router: Router,
-  ) {}
+  constructor() // private router: Router, // private authService: AuthService,
+  {}
 
   ngOnDestroy() {
     this.destroyed$.next();

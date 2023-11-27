@@ -8,6 +8,7 @@ import { ModalDialogComponent } from '../../components/modal-dialog/modal-dialog
 import { User } from '../../../models/user.model';
 import { UserDoc } from '../../../models/ddbb.model';
 import { UserService } from '../../services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   standalone: true,
@@ -27,7 +28,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   constructor(
     private userService: UserService,
     private authService: AuthService,
-    // private router: Router,
+    private router: Router,
     private modalService: NgbModal
   ) {}
 
@@ -83,7 +84,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   onSignOut() {
-    this.authService.logout();
+    // this.authService.logout();
   }
 
   onSettingsUser() {
@@ -102,7 +103,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
         //   },
         //   (err) => console.error(err)
         // );
-        this.authService.logout();
+        // this.authService.logout();
       },
       reason => {
         console.info(`Dismissed with: ${reason}`);
