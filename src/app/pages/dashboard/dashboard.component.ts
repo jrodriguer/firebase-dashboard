@@ -27,7 +27,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
   constructor(
     private userService: UserService,
     private authService: AuthService,
-    private geocodingService: GeocodingService,
     private router: Router,
     private modalService: NgbModal
   ) {}
@@ -84,12 +83,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
     }
   }
 
-  private _toGeographicalCoordinates(address: Address | undefined) {
-    this.geocodingService
-      .geocode(`${address?.street} ${address?.city} ${address?.zip}`)
-      .subscribe((coords) => (this.coordinates = coords));
-  }
-
   onSignOut() {
     this.authService.logout();
   }
@@ -104,12 +97,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
     modalRef.result.then(
       (result) => {
-        this.authService.updateCredentials(result.email, result.password).then(
-          () => {
-            this.router.navigate(['login']);
-          },
-          (err) => console.error(err)
-        );
+        // this.authService.updateCredentials(result.email, result.password).then(
+        //   () => {
+        //     this.router.navigate(['login']);
+        //   },
+        //   (err) => console.error(err)
+        // );
         this.authService.logout();
       },
       (reason) => {

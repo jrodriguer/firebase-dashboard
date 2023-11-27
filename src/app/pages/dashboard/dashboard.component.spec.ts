@@ -3,15 +3,10 @@ import {
   HttpClientTestingModule,
   HttpTestingController
 } from '@angular/common/http/testing';
-import { AngularFireModule } from '@angular/fire/compat';
-import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
-import 'firebase/firestore';
 import { NgbModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { DashboardComponent } from './dashboard.component';
 import { environment } from '../../../environments/environment';
-import { ChartWeatherModule } from '../../components/chart-weather/chart-weather.module';
-import { MapModule } from '../../components/map/map.module';
 
 class MockNgbModalRef {
   componentInstance = {
@@ -33,10 +28,6 @@ describe('DashboardComponent', () => {
         HttpClientTestingModule,
         HttpClientTestingModule,
         NgbModule,
-        AngularFireModule.initializeApp(environment.firebase),
-        AngularFirestoreModule,
-        ChartWeatherModule,
-        MapModule
       ],
       declarations: [DashboardComponent]
     }).compileComponents();
