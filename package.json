@@ -8,8 +8,6 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "prettier-format": "prettier --config .prettierrc \"src/**/*.{ts,html,json}\" --write",
-    "prettier-watch": "onchange \"src/**/*.{ts,html,json,scss}\" -- prettier --write {{changed}}",
     "lint": "eslint . --ext .ts"
   },
   "private": true,
@@ -28,6 +26,7 @@
     "angular-plotly.js": "^4.0.4",
     "assert": "^2.0.0",
     "bootstrap": "^5.2.3",
+    "eslint-plugin-prettier": "^5.0.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "^0.14.2"
@@ -51,7 +50,6 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.0.0",
-    "prettier": "^2.8.4",
     "typescript": "^5.2.2"
   }
 }
