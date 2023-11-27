@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 
-import { environment } from '../../../environments/environment';
+// import { environment } from '../../../environments/environment';
 import { AuthService } from '../../../app/auth/auth.service';
 import { UserService } from '../../services/user.service';
 import { RegisterComponent } from './register.component';

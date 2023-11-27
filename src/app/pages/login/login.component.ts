@@ -1,18 +1,18 @@
 import {
   Component,
-  ComponentFactoryResolver,
   ViewChild,
   OnDestroy,
 } from '@angular/core';
-import { NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
-import { Subject, takeUntil } from 'rxjs';
+// import { NgForm } from '@angular/forms';
+// import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
 
-import { AlertComponent } from '../../shared/alert/alert.component';
-import { AuthService } from '../../auth/auth.service';
+// import { AlertComponent } from '../../shared/alert/alert.component';
+// import { AuthService } from '../../auth/auth.service';
 import { PlaceholderDirective } from '../../shared/placeholder/placeholder.directive';
 
 @Component({
+  standalone: true,
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
@@ -23,42 +23,12 @@ export class LoginComponent implements OnDestroy {
     {} as PlaceholderDirective;
 
   constructor(
-    private authService: AuthService,
-    private router: Router,
-    private componentFactoryResolver: ComponentFactoryResolver
+    // private authService: AuthService,
+    // private router: Router,
   ) {}
 
   ngOnDestroy() {
     this.destroyed$.next();
     this.destroyed$.complete();
-  }
-
-  onSubmit(form: NgForm) {
-    const email = form.value.email;
-    const pw = form.value.password;
-    this.authService.signIn(email, pw).then(
-      () => {
-        console.log('entra');
-        this.router.navigate(['dashboard']);
-      },
-      err => this._showErrorAlert(err)
-    );
-  }
-
-  private _showErrorAlert(message: string) {
-    const alertFactory =
-      this.componentFactoryResolver.resolveComponentFactory(AlertComponent);
-
-    const hostViewContainerRef = this.alertHost.viewContainerRef;
-    hostViewContainerRef.clear();
-
-    const componentRef = hostViewContainerRef.createComponent(alertFactory);
-
-    componentRef.instance.msg = message;
-    componentRef.instance.close
-      .pipe(takeUntil(this.destroyed$))
-      .subscribe(() => {
-        hostViewContainerRef.clear();
-      });
   }
 }

@@ -21,6 +21,6 @@ import { FieldErrorPrintComponent } from './field-error-print/field-error-print.
     FieldErrorPrintComponent,
     CommonModule,
   ],
-  entryComponents: [AlertComponent],
+  // entryComponents: [AlertComponent],
 })
 export class SharedModule {}

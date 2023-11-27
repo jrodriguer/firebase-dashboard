@@ -2,15 +2,14 @@ import { Component, Input, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { UserDoc } from '../../../models/ddbb.model';
-
 @Component({
+  standalone: true,
   selector: 'app-modal-dialog',
   templateUrl: './modal-dialog.component.html',
   styleUrls: ['./modal-dialog.component.scss'],
 })
 export class ModalDialogComponent implements OnInit {
-  @Input() user: UserDoc = {} as UserDoc;
+  @Input() user: any = {} as any;
   @Input() udpateCredentials = false;
   public credentialsForm!: FormGroup;
 

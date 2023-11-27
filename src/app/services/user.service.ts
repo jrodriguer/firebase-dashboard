@@ -56,7 +56,6 @@ export class UserService {
       .pipe(catchError(this.handleError));
   }
 
-  // TODO: neccesary method?
   private handleError(error: any): Observable<never> {
     if (error.error instanceof ErrorEvent) {
       console.error('An error occurred:', error.error.message);
@@ -65,6 +64,6 @@ export class UserService {
         `Backend returned code ${error.status}, ` + `body was: ${error.error}`
       );
     }
-    return throwError('Something bad happened; please try again later.');
+    return throwError(() => error);
   }
 }

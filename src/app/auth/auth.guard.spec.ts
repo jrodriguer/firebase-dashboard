@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { ActivatedRouteSnapshot, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { RouterStateSnapshot } from '@angular/router';
 
 import { AuthGuard } from './auth.guard';
@@ -26,3 +26,4 @@ describe('AuthGuard', () => {
     expect(guard).toBeTruthy();
   });
 });
+

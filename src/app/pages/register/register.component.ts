@@ -1,21 +1,19 @@
 import {
   Component,
-  ComponentFactoryResolver,
   ViewChild,
   OnDestroy,
   OnInit,
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { takeUntil, Subject } from 'rxjs';
+// import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
 
-import { AuthService } from '../../auth/auth.service';
-import { AlertComponent } from '../../shared/alert/alert.component';
+// import { AuthService } from '../../auth/auth.service';
+// import { AlertComponent } from '../../shared/alert/alert.component';
 import { PlaceholderDirective } from '../../shared/placeholder/placeholder.directive';
-import { UserService } from '../../services/user.service';
-import { UserDoc } from '../../../models/ddbb.model';
 
 @Component({
+  standalone: true,
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
@@ -28,11 +26,10 @@ export class RegisterComponent implements OnInit, OnDestroy {
     {} as PlaceholderDirective;
 
   constructor(
-    private authService: AuthService,
-    private userService: UserService,
+    // private authService: AuthService,
+    // private userService: UserService,
     private formBuilder: FormBuilder,
-    private router: Router,
-    private componentFactoryResolver: ComponentFactoryResolver
+    // private router: Router,
   ) {}
 
   ngOnInit() {
@@ -59,46 +56,6 @@ export class RegisterComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    const formValue: UserDoc = this.registerForm.value;
-    this.authService
-      .signUp(
-        formValue.email,
-        formValue.password,
-        formValue.name,
-        formValue.address
-      )
-      .then(
-        () => {
-          this._setUserDoc(formValue);
-        },
-        err => this._showErrorAlert(err)
-      );
-  }
-
-  private _setUserDoc(registration: UserDoc) {
-    this.userService
-      .createUser(registration)
-      .pipe(takeUntil(this.destroyed$))
-      .subscribe(() => {
-        this.router.navigate(['dashboard']);
-      });
-  }
-
-  private _showErrorAlert(message: string) {
-    console.log(message);
-    const alertFactory =
-      this.componentFactoryResolver.resolveComponentFactory(AlertComponent);
-
-    const hostViewContainerRef = this.alertHost.viewContainerRef;
-    hostViewContainerRef.clear();
-
-    const componentRef = hostViewContainerRef.createComponent(alertFactory);
-
-    componentRef.instance.msg = message;
-    componentRef.instance.close
-      .pipe(takeUntil(this.destroyed$))
-      .subscribe(() => {
-        hostViewContainerRef.clear();
-      });
+    // const formValue: UserDoc = this.registerForm.value;
   }
 }

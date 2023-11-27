@@ -1,15 +1,16 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { filter, Observable, Subject, takeUntil } from 'rxjs';
-import { Router } from '@angular/router';
+// import { Router } from '@angular/router';
 
 import { AuthService } from '../../auth/auth.service';
 import { ModalDialogComponent } from '../../components/modal-dialog/modal-dialog.component';
 import { User } from '../../../models/user.model';
-import { Address, UserDoc } from '../../../models/ddbb.model';
+import { UserDoc } from '../../../models/ddbb.model';
 import { UserService } from '../../services/user.service';
 
 @Component({
+  standalone: true,
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
@@ -26,7 +27,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   constructor(
     private userService: UserService,
     private authService: AuthService,
-    private router: Router,
+    // private router: Router,
     private modalService: NgbModal
   ) {}
 
@@ -41,7 +42,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
       if (user && user.address) {
         this.name = user.name;
         this.city = user.address.city;
-        this._toGeographicalCoordinates(user?.address);
       }
     });
 
@@ -95,7 +95,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
       true;
 
     modalRef.result.then(
-      result => {
+      () => {
         // this.authService.updateCredentials(result.email, result.password).then(
         //   () => {
         //     this.router.navigate(['login']);
