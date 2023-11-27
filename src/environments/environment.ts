@@ -2,13 +2,12 @@ export const environment = {
   production: false,
   apiUrl: 'http://localhost:3000',
   firebase: {
-    apiKey: 'AIzaSyDXWEC_FNsxqHaHiqIipKjoMmf16nhaMzM',
-    authDomain: 'wenea-thechnical.firebaseapp.com',
-    databaseURL: 'https://wenea-thechnical-default-rtdb.firebaseio.com',
-    projectId: 'wenea-thechnical',
-    storageBucket: 'wenea-thechnical.appspot.com',
-    messagingSenderId: '449693082463',
-    appId: '1:449693082463:web:045a2f70101f0b601b4cea',
-    measurementId: 'G-KZM6M2T4V1',
+    apiKey: "AIzaSyCuee_CCVZIO40ZKQ41wXXkBrOsgPzpVSM",
+    authDomain: "flutter-news-app-6a808.firebaseapp.com",
+    projectId: "flutter-news-app-6a808",
+    storageBucket: "flutter-news-app-6a808.appspot.com",
+    messagingSenderId: "43190597035",
+    appId: "1:43190597035:web:ac12179e0e6d4438d38eee",
+    measurementId: "G-ME6THMM3WY"
   },
 };
