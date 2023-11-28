@@ -60,9 +60,9 @@ export class SidebarComponent implements OnInit {
 		dom.classList.toggle('rtl');
 	}
 
-  changeLang(language: string) {
-    // this.translate.use(language);
-  }
+	changeLang(language: string) {
+		// this.translate.use(language);
+	}
 
 	onLoggedout() {
 		localStorage.removeItem('isLoggedin');

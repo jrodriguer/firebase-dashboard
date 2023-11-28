@@ -78,31 +78,21 @@
 			</a>
 			<div class="nested-menu">
 				<a (click)="addExpandClass('languages')" class="list-group-item">
-					<span
-						><i class="fa fa-language"></i>&nbsp; Language <b class="caret"></b
-					></span>
+					<span><i class="fa fa-language"></i>&nbsp; Language <b class="caret"></b></span>
 				</a>
 				<li [class.expand]="showMenu === 'languages'" class="nested">
 					<ul class="submenu">
 						<li>
-							<a (click)="changeLang('en')" href="javascript:void(0)">
-                English
-							</a>
+							<a (click)="changeLang('en')" href="javascript:void(0)"> English </a>
 						</li>
 						<li>
-							<a (click)="changeLang('fr')" href="javascript:void(0)">
-                French
-							</a>
+							<a (click)="changeLang('fr')" href="javascript:void(0)"> French </a>
 						</li>
 						<li>
-							<a (click)="changeLang('es')" href="javascript:void(0)">
-                Spanish
-							</a>
+							<a (click)="changeLang('es')" href="javascript:void(0)"> Spanish </a>
 						</li>
 						<li>
-							<a (click)="changeLang('it')" href="javascript:void(0)">
-                Italian
-							</a>
+							<a (click)="changeLang('it')" href="javascript:void(0)"> Italian </a>
 						</li>
 					</ul>
 				</li>

@@ -13,7 +13,7 @@ import { AuthService } from '../auth/auth.service';
 export class LoginComponent implements OnDestroy {
 	private destroyed$ = new Subject<void>();
 
-constructor(
+	constructor(
 		private router: Router,
 		private authService: AuthService
 	) {}
