@@ -8,7 +8,7 @@ import {
 	BASE_REST_HEADER,
 	WENEA_USER_PROFILE,
 	WENEA_VERSION,
-} from '../../utils/constans';
+} from '../../utils/constants';
 
 @Injectable({
 	providedIn: 'root',
