@@ -9,7 +9,7 @@ const credencialsObj = {
 	pass: '12345',
 };
 
-fdescribe('AuthService', () => {
+describe('AuthService', () => {
 	let service: AuthService;
 	let httpTestingController: HttpTestingController;
 
