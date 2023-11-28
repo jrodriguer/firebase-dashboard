@@ -1,11 +1,11 @@
 import { Component, ViewChild, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-// import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
+import { AuthService } from '../auth/auth.service';
+import { UserService } from '../services/user.service';
+import { Router } from '@angular/router';
+import { PlaceholderDirective } from '../shared/placeholder/placeholder.directive';
 
-// import { AuthService } from '../../auth/auth.service';
-// import { AlertComponent } from '../../shared/alert/alert.component';
-import { PlaceholderDirective } from '../../shared/placeholder/placeholder.directive';
 
 @Component({
 	selector: 'app-register',
@@ -19,10 +19,10 @@ export class RegisterComponent implements OnInit, OnDestroy {
 	@ViewChild(PlaceholderDirective) alertHost: PlaceholderDirective = {} as PlaceholderDirective;
 
 	constructor(
-		// private authService: AuthService,
-		// private userService: UserService,
-		private formBuilder: FormBuilder
-		// private router: Router,
+		private authService: AuthService,
+		private userService: UserService,
+		private formBuilder: FormBuilder,
+		private router: Router,
 	) {}
 
 	ngOnInit() {
@@ -48,7 +48,5 @@ export class RegisterComponent implements OnInit, OnDestroy {
 		});
 	}
 
-	onSubmit() {
-		// const formValue: UserDoc = this.registerForm.value;
-	}
+	onSubmit() {}
 }
