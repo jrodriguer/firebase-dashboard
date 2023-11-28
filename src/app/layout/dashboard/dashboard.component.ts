@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
 	selector: 'app-dashboard',
 	templateUrl: './dashboard.component.html',
 	styleUrls: ['./dashboard.component.scss'],
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent {
 	public alerts: Array<any> = [];
 	public sliders: Array<any> = [];
 
@@ -47,8 +47,6 @@ export class DashboardComponent implements OnInit {
 			}
 		);
 	}
-
-	ngOnInit() {}
 
 	public closeAlert(alert: any) {
 		const index: number = this.alerts.indexOf(alert);

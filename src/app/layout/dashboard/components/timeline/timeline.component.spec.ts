@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
-import { StatComponent } from './stat.component';
+import { TimelineComponent } from './timeline.component';
 
-describe('StatComponent', () => {
-    let component: StatComponent;
-    let fixture: ComponentFixture<StatComponent>;
+describe('TimelineComponent', () => {
+    let component: TimelineComponent;
+    let fixture: ComponentFixture<TimelineComponent>;
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
-            declarations: [StatComponent]
+            declarations: [TimelineComponent]
         }).compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(StatComponent);
+        fixture = TestBed.createComponent(TimelineComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

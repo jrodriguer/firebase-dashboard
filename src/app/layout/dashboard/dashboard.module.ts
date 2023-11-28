@@ -5,9 +5,14 @@ import { RouterModule } from '@angular/router';
 import { DashboardComponent } from './dashboard.component';
 import { NgbAlertModule, NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
 import { StatModule } from '../../shared';
+import { NotificationComponent, TimelineComponent } from './components';
 
 @NgModule({
-	declarations: [DashboardComponent],
+	declarations: [
+		DashboardComponent,
+		TimelineComponent,
+		NotificationComponent,
+	],
 	imports: [
 		CommonModule,
 		NgbCarouselModule,
@@ -16,4 +21,4 @@ import { StatModule } from '../../shared';
 		RouterModule.forChild([{ path: '', component: DashboardComponent }]),
 	],
 })
-export class DashboardModule {}
+export class DashboardModule { }
