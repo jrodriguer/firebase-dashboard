@@ -8,7 +8,6 @@ import { Subject } from 'rxjs';
 import { PlaceholderDirective } from '../../shared/placeholder/placeholder.directive';
 
 @Component({
-	standalone: true,
 	selector: 'app-register',
 	templateUrl: './register.component.html',
 	styleUrls: ['./register.component.scss'],

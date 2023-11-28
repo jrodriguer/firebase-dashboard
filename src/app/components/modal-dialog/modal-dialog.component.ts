@@ -3,7 +3,6 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
-	standalone: true,
 	selector: 'app-modal-dialog',
 	templateUrl: './modal-dialog.component.html',
 	styleUrls: ['./modal-dialog.component.scss'],

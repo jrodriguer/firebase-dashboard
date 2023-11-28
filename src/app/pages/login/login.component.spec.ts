@@ -2,7 +2,6 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { FormsModule } from '@angular/forms';
 
-// import { environment } from '../../../environments/environment';
 import { LoginComponent } from './login.component';
 
 describe('LoginComponent', () => {
@@ -22,5 +21,28 @@ describe('LoginComponent', () => {
 
 	it('should create', () => {
 		expect(component).toBeTruthy();
+	});
+
+
+	it('should have a form', () => {
+		expect(component).toBeTruthy();
+	});
+
+
+	it('should have email input with binding', () => {
+		expect(component).toBeTruthy();
+	});
+
+	it('should have password input with binding', () => {
+		expect(component).toBeTruthy();
+	});
+
+	it('should call submit method when form form is submitted', () => {
+    spyOn(component, 'onSubmit');
+    const form = fixture.nativeElement.querySelector('form');
+    // Trigger form submission
+    form.dispatchEvent(new Event('submit'));
+
+		expect(component.onSubmit).toHaveBeenCalled();
 	});
 });
