@@ -1,6 +1,7 @@
 export const environment = {
 	production: false,
 	apiUrl: 'http://localhost:3000',
+  version: '3.0.4',
 	firebase: {
 		apiKey: 'AIzaSyCuee_CCVZIO40ZKQ41wXXkBrOsgPzpVSM',
 		authDomain: 'flutter-news-app-6a808.firebaseapp.com',
