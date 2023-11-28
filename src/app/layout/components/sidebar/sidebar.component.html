@@ -1,33 +1,34 @@
 <nav [ngClass]="{ sidebarPushRight: isActive, collapsed: collapsed }" class="sidebar">
 	<div class="list-group">
 		<a [routerLinkActive]="['router-link-active']" class="list-group-item" routerLink="/dashboard">
-			<i class="fa fa-fw fa-dashboard"></i>
+			<i class="fa fa-fw fa-dashboard"></i>&nbsp;
 			<span>Dasboard</span>
 		</a>
 		<a
 			[routerLinkActive]="['router-link-active']"
 			[routerLink]="['/charts']"
 			class="list-group-item">
-			<i class="fa fa-fw fa-bar-chart-o"></i>
+			<i class="fa fa-fw fa-bar-chart-o"></i>&nbsp;
 			<span>Charts</span>
 		</a>
 		<a
 			[routerLinkActive]="['router-link-active']"
 			[routerLink]="['/tables']"
 			class="list-group-item">
-			<i class="fa fa-fw fa-table"></i>
+			<i class="fa fa-fw fa-table"></i>&nbsp;
 			<span>Tables</span>
 		</a>
 		<a
 			[routerLinkActive]="['router-link-active']"
 			[routerLink]="['/forms']"
 			class="list-group-item">
-			<i class="fa fa-fw fa-edit"></i>
+			<i class="fa fa-fw fa-edit"></i>&nbsp;
 			<span>Forms</span>
 		</a>
-		<div class="nested-menu">
+
+		<!-- <div class="nested-menu">
 			<a (click)="addExpandClass('pages')" class="list-group-item">
-				<i class="fa fa-plus"></i>
+				<i class="fa fa-plus"></i>&nbsp;
 				<span>Menu</span>
 			</a>
 			<li [class.expand]="showMenu === 'pages'" class="nested">
@@ -52,66 +53,13 @@
 					</li>
 				</ul>
 			</li>
-		</div>
+		</div> -->
 
-		<div class="header-fields">
-			<a (click)="rltAndLtr()" class="list-group-item">
-				<span><i class="fa fa-arrows-h"></i>RTL/LTR</span>
-			</a>
-			<div class="nested-menu">
-				<a (click)="addExpandClass('languages')" class="list-group-item">
-					<span><i class="fa fa-language"></i>Language <b class="caret"></b></span>
-				</a>
-				<li [class.expand]="showMenu === 'languages'" class="nested">
-					<ul class="submenu">
-						<li>
-							<a (click)="changeLang('en')" href="javascript:void(0)"> English </a>
-						</li>
-						<li>
-							<a (click)="changeLang('fr')" href="javascript:void(0)"> French </a>
-						</li>
-						<li>
-							<a (click)="changeLang('es')" href="javascript:void(0)"> Spanish </a>
-						</li>
-						<li>
-							<a (click)="changeLang('it')" href="javascript:void(0)"> Italian </a>
-						</li>
-					</ul>
-				</li>
-			</div>
-			<div class="nested-menu">
-				<a (click)="addExpandClass('profile')" class="list-group-item">
-					<span><i class="fa fa-user"></i>John Smith</span>
-				</a>
-				<li [class.expand]="showMenu === 'profile'" class="nested">
-					<ul class="submenu">
-						<li>
-							<a href="javascript:void(0)">
-								<span><i class="fa fa-fw fa-user"></i>Profile</span>
-							</a>
-						</li>
-						<li>
-							<a href="javascript:void(0)">
-								<span><i class="fa fa-fw fa-envelope"></i>Inbox</span>
-							</a>
-						</li>
-						<li>
-							<a href="javascript:void(0)">
-								<span><i class="fa fa-fw fa-gear"></i>Settings</span>
-							</a>
-						</li>
-						<li>
-							<a (click)="onLoggedout()" [routerLink]="['/login']">
-								<span><i class="fa fa-fw fa-power-off"></i>Log Out</span>
-							</a>
-						</li>
-					</ul>
-				</li>
-			</div>
-		</div>
 	</div>
+
 	<div (click)="toggleCollapsed()" [ngClass]="{ collapsed: collapsed }" class="toggle-button">
 		<i class="fa fa-fw fa-angle-double-{{ collapsed ? 'right' : 'left' }}"></i>
 		<span>Collapse Sidebar</span>
 	</div>
+
 </nav>
