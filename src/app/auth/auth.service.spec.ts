@@ -46,12 +46,11 @@ fdescribe('AuthService', () => {
 			password: credencialsObj.pass,
 		});
 
-		request.flush(mockResponse); // Respond to the request with the mock response
+		request.flush(mockResponse);
 	});
 
 	it('#loginToken should set user token and return success reponse when getUserInfo success', (done: DoneFn) => {
-		let token = 'someToken';
-
+		const token = 'someToken';
 		const mockUser = {};
 		spyOn(service, 'getUserInfo').and.returnValue(of(mockUser));
 
@@ -66,53 +65,82 @@ fdescribe('AuthService', () => {
 		});
 	});
 
-  it('#loginToken should handle error when getUserInfo fails', (done: DoneFn) => {
-    let token = 'someToken';
+	it('#loginToken should handle error when getUserInfo fails', (done: DoneFn) => {
+		const token = 'someToken';
 
-    // Simulating an error response from getUserInfo
-    // if != 400 invalid token
-    // else token is valid but user has no profile
-    const errorResponse = { status: 500 };
-    spyOn(service, 'getUserInfo').and.returnValue(throwError(errorResponse));
+		// Simulating an error response from getUserInfo
+		// if != 400 invalid token
+		// else token is valid but user has no profile
+		const errorResponse = { status: 500 };
+		spyOn(service, 'getUserInfo').and.returnValue(throwError(errorResponse));
 
-    service.loginToken(token).subscribe({
-      next: () => {
-        done.fail('Next callback should not be called');
-      },
-      error: (err: {status: number}) => {
-        expect(service.userToken).toEqual(token);
-        expect(err).toEqual(errorResponse);
-        expect(service.getUserInfo).toHaveBeenCalled();
-        done();
-      }
-    });
-  });
+		service.loginToken(token).subscribe({
+			next: () => {
+				done.fail('Next callback should not be called');
+			},
+			error: (err: { status: number }) => {
+				expect(service.userToken).toEqual(token);
+				expect(err).toEqual(errorResponse);
+				expect(service.getUserInfo).toHaveBeenCalled();
+				done();
+			},
+		});
+	});
 
-  it('#getUserInfo should return user info object and udpate attributes',
-    (done: DoneFn) => {
-      const mockRes = {
-        user: {
-          mail: 'test@example.com',
-          id_tag: '123456',
-          groups: ['group1', 'group2'],
-          vehicles: ['vehicle1', 'vehicle2'],
-        }
-      };
+	it('#getUserInfo should return user info object and udpate attributes', (done: DoneFn) => {
+		const mockResponse = {
+			user: {
+				mail: 'test@example.com',
+				id_tag: '123456',
+				groups: ['group1', 'group2'],
+				vehicles: ['vehicle1', 'vehicle2'],
+			},
+		};
 
-      service.getUserInfo().subscribe((res: any) => {
-        // Assert that the user attributes have been updated correctly
-        // expect(service.user).toEqual(mockRes.user);
-        // expect(service.userMail).toEqual(mockRes.user.mail);
+		service.getUserInfo().subscribe(() => {
+			// Assert that the user attributes have been updated correctly
+			// expect(service.user).toEqual(mockResponse.user);
+			// expect(service.userMail).toEqual(mockResponse.user.mail);
 
-        // Ensure that the HTTP request was made with the proper headers
-        const req = httpTestingController.expectOne('https://backend-dehesa.wenea.site/api/v7/user/info/');
-        expect(req.request.method).toEqual('GET');
-        expect(req.request.headers.get('Content-Type')).toEqual('application/json');
+			done();
+		});
 
-        req.flush(mockRes);
+		// Ensure that the HTTP request was made with the proper headers
+		const req = httpTestingController.expectOne(
+			'https://backend-dehesa.wenea.site/api/v7/user/info/'
+		);
+		expect(req.request.method).toEqual('GET');
+		expect(req.request.headers.get('Content-Type')).toEqual('application/json');
 
-        done();
-      })
-  });
+		req.flush(mockResponse);
+
+		// To ensure it's invoked after the asynchronous code completes.
+		// httpTestingController.verify() method confirms that all expected requests have been handled.
+		httpTestingController.verify();
+	});
+
+	it('#getUserInfo should handle error for status 400', (done: DoneFn) => {
+		const errorResponse = { status: 400 };
+
+		service.getUserInfo().subscribe({
+			next: () => {},
+			error: err => {
+				expect(err.status).toEqual(errorResponse.status);
+				done();
+			},
+		});
+
+		const req = httpTestingController.expectOne(
+			'https://backend-dehesa.wenea.site/api/v7/user/info/'
+		);
+		req.flush('', { status: 400, statusText: 'Bad request' });
+
+		httpTestingController.verify();
+	});
+
+	it('#logout should clear user session and remove FCM Token', (done: DoneFn) => {});
+
+	it('#sendFCMToken should send FCM token to backend', (done: DoneFn) => {});
+
+	it('#deleteFCMToken should delete FCM token', (done: DoneFn) => {});
 });
-
