@@ -26,7 +26,6 @@
 		"@ng-bootstrap/ng-bootstrap": "^16.0.0",
 		"angular-plotly.js": "^4.0.4",
 		"assert": "^2.0.0",
-    "@popperjs/core": "2.11.7",
 		"bootstrap": "^5.2.3",
 		"font-awesome": "4.7.0",
 		"rxjs": "~7.8.0",
