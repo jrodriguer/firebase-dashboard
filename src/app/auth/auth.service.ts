@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, Observer } from 'rxjs';
+import { BehaviorSubject, Observable, Observer, catchError, map, throwError } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { User } from '../../models/user.model';
-import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 
 const BASE_URI_DES = `https://backend-des.wenea.site/api`;
 const BASE_URI_PRE = `https://backend-pre.wenea.site/api`;
@@ -10,6 +11,8 @@ const BASE_URI_PRO = `https://backend-pro.wenea.site/api`;
 const BASE_URI_DEHESA = `https://backend-dehesa.wenea.site/api`;
 
 const WENEA_API_VERSION = 'v7';
+const WENEA_VERSION = environment.version;
+const BASE_URI: string = BASE_URI_DEHESA;
 const USER_ENDPOINT = `${BASE_URI}/${WENEA_API_VERSION}/user`;
 
 const WENEA_USER_LOGIN = `${USER_ENDPOINT}/login/`;
@@ -24,12 +27,11 @@ const BASE_REST_HEADER = new HttpHeaders({
 	providedIn: 'root',
 })
 export class AuthService {
-	public tokenExpirationTimer: any;
 	private userSubject = new BehaviorSubject<User | null>(null); // store and info user state
 	public user$: Observable<User | null> = this.userSubject.asObservable();
 
 	private userFCMToken: string = '';
-	private userToken: string = '';
+	public userToken: any;
 
 	constructor(private http: HttpClient) {}
 
@@ -59,26 +61,18 @@ export class AuthService {
 	 *
 	 * @returns observer with token.
 	 */
-	loginToken(token: string): Observable<{}> {
-		return new Observable((observer: Observer<{}>) => {
-			this.getUserInfo().subscribe(
-				res => {
-					res = { result: true };
-					observer.next(res);
-					observer.complete();
-				},
-				err => {
-					if (err.status != 400) {
-						// invalid token
-						observer.error(err);
-					} else {
-						let res = { result: true }; // token is valid but user has no profile
-						observer.next(res);
-						observer.complete();
-					}
-				}
-			);
-		});
+	loginToken(token: string): Observable<any> {
+    this.userToken = token;
+    return this.getUserInfo().pipe(
+      map((res: any) => ({ result: true })),
+      catchError((err) => {
+        if (err.status !== 400) {
+          return throwError(() => err);
+        } else {
+          return throwError(() => ({ result: true }));
+        }
+      })
+    );
 	}
 
 	/**

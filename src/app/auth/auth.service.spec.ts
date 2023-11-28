@@ -1,9 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { HttpClient } from '@angular/common/http';
-import { of } from 'rxjs';
+import { of, throwError } from 'rxjs';
 
-// import { environment } from '../../environments/environment';
 import { AuthService } from './auth.service';
 
 const credencialsObj = {
@@ -52,13 +50,13 @@ fdescribe('AuthService', () => {
 	});
 
 	it('#loginToken should set user token and return success reponse when getUserInfo success', (done: DoneFn) => {
-		const token = 'someToken';
+		let token = 'someToken';
+
 		const mockUser = {};
 		spyOn(service, 'getUserInfo').and.returnValue(of(mockUser));
 
 		service.loginToken(token).subscribe({
 			next: (res: any) => {
-				// TODO: Add User info model.
 				expect(res.result).toBe(true);
 				done();
 			},
@@ -68,7 +66,53 @@ fdescribe('AuthService', () => {
 		});
 	});
 
-  it('', (done: DoneFn) => {
+  it('#loginToken should handle error when getUserInfo fails', (done: DoneFn) => {
+    let token = 'someToken';
 
+    // Simulating an error response from getUserInfo
+    // if != 400 invalid token
+    // else token is valid but user has no profile
+    const errorResponse = { status: 500 };
+    spyOn(service, 'getUserInfo').and.returnValue(throwError(errorResponse));
+
+    service.loginToken(token).subscribe({
+      next: () => {
+        done.fail('Next callback should not be called');
+      },
+      error: (err: {status: number}) => {
+        expect(service.userToken).toEqual(token);
+        expect(err).toEqual(errorResponse);
+        expect(service.getUserInfo).toHaveBeenCalled();
+        done();
+      }
+    });
+  });
+
+  it('#getUserInfo should return user info object and udpate attributes',
+    (done: DoneFn) => {
+      const mockRes = {
+        user: {
+          mail: 'test@example.com',
+          id_tag: '123456',
+          groups: ['group1', 'group2'],
+          vehicles: ['vehicle1', 'vehicle2'],
+        }
+      };
+
+      service.getUserInfo().subscribe((res: any) => {
+        // Assert that the user attributes have been updated correctly
+        // expect(service.user).toEqual(mockRes.user);
+        // expect(service.userMail).toEqual(mockRes.user.mail);
+
+        // Ensure that the HTTP request was made with the proper headers
+        const req = httpTestingController.expectOne('https://backend-dehesa.wenea.site/api/v7/user/info/');
+        expect(req.request.method).toEqual('GET');
+        expect(req.request.headers.get('Content-Type')).toEqual('application/json');
+
+        req.flush(mockRes);
+
+        done();
+      })
   });
 });
+
