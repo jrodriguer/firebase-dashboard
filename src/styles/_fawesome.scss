@@ -6010,10 +6010,11 @@ tbody.collapse.show {
 	background-color: #e9ecef;
 	border-radius: 0.25rem;
 }
+.breadcrumb-item {
+  display: inline-block;
+}
 .breadcrumb-item + .breadcrumb-item::before {
 	display: inline-block;
-	padding-right: 0.5rem;
-	padding-left: 0.5rem;
 	color: #868e96;
 	content: '/';
 }

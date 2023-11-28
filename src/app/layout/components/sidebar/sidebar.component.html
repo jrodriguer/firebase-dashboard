@@ -1,70 +1,52 @@
 <nav [ngClass]="{ sidebarPushRight: isActive, collapsed: collapsed }" class="sidebar">
 	<div class="list-group">
 		<a [routerLinkActive]="['router-link-active']" class="list-group-item" routerLink="/dashboard">
-			<i class="fa fa-fw fa-dashboard"></i>&nbsp;
+			<i class="fa fa-fw fa-dashboard"></i>
 			<span>Dasboard</span>
 		</a>
 		<a
 			[routerLinkActive]="['router-link-active']"
 			[routerLink]="['/charts']"
 			class="list-group-item">
-			<i class="fa fa-fw fa-bar-chart-o"></i>&nbsp;
+			<i class="fa fa-fw fa-bar-chart-o"></i>
 			<span>Charts</span>
 		</a>
 		<a
 			[routerLinkActive]="['router-link-active']"
 			[routerLink]="['/tables']"
 			class="list-group-item">
-			<i class="fa fa-fw fa-table"></i>&nbsp;
+			<i class="fa fa-fw fa-table"></i>
 			<span>Tables</span>
 		</a>
 		<a
 			[routerLinkActive]="['router-link-active']"
 			[routerLink]="['/forms']"
 			class="list-group-item">
-			<i class="fa fa-fw fa-edit"></i>&nbsp;
+			<i class="fa fa-fw fa-edit"></i>
 			<span>Forms</span>
-		</a>
-		<a
-			[routerLinkActive]="['router-link-active']"
-			[routerLink]="['/bs-element']"
-			class="list-group-item">
-			<i class="fa fa-fw fa-desktop"></i>&nbsp;
-			<span>Bootstrap Element</span>
-		</a>
-		<a [routerLinkActive]="['router-link-active']" [routerLink]="['/grid']" class="list-group-item">
-			<i class="fa fa-fw fa-wrench"></i>&nbsp;
-			<span>Bootstrap Grid</span>
-		</a>
-		<a
-			[routerLinkActive]="['router-link-active']"
-			[routerLink]="['/components']"
-			class="list-group-item">
-			<i class="fa fa-th-list"></i>&nbsp;
-			<span>Component</span>
 		</a>
 		<div class="nested-menu">
 			<a (click)="addExpandClass('pages')" class="list-group-item">
-				<i class="fa fa-plus"></i>&nbsp;
+				<i class="fa fa-plus"></i>
 				<span>Menu</span>
 			</a>
 			<li [class.expand]="showMenu === 'pages'" class="nested">
 				<ul class="submenu">
 					<li>
 						<a href="javascript:void(0)">
-							<i class="fa fa-monument"></i>&nbsp;
+							<i class="fa fa-monument"></i>
 							<span>Submenu</span>
 						</a>
 					</li>
 					<li>
 						<a href="javascript:void(0)">
-							<i class="fa fa-monument"></i>&nbsp;
+							<i class="fa fa-monument"></i>
 							<span>Submenu</span>
 						</a>
 					</li>
 					<li>
 						<a href="javascript:void(0)">
-							<i class="fa fa-monument"></i>&nbsp;
+							<i class="fa fa-monument"></i>
 							<span>Submenu</span>
 						</a>
 					</li>
@@ -74,11 +56,11 @@
 
 		<div class="header-fields">
 			<a (click)="rltAndLtr()" class="list-group-item">
-				<span><i class="fa fa-arrows-h"></i>&nbsp; RTL/LTR</span>
+				<span><i class="fa fa-arrows-h"></i>RTL/LTR</span>
 			</a>
 			<div class="nested-menu">
 				<a (click)="addExpandClass('languages')" class="list-group-item">
-					<span><i class="fa fa-language"></i>&nbsp; Language <b class="caret"></b></span>
+					<span><i class="fa fa-language"></i>Language <b class="caret"></b></span>
 				</a>
 				<li [class.expand]="showMenu === 'languages'" class="nested">
 					<ul class="submenu">
@@ -99,7 +81,7 @@
 			</div>
 			<div class="nested-menu">
 				<a (click)="addExpandClass('profile')" class="list-group-item">
-					<span><i class="fa fa-user"></i>&nbsp; John Smith</span>
+					<span><i class="fa fa-user"></i>John Smith</span>
 				</a>
 				<li [class.expand]="showMenu === 'profile'" class="nested">
 					<ul class="submenu">
@@ -129,7 +111,7 @@
 		</div>
 	</div>
 	<div (click)="toggleCollapsed()" [ngClass]="{ collapsed: collapsed }" class="toggle-button">
-		<i class="fa fa-fw fa-angle-double-{{ collapsed ? 'right' : 'left' }}"></i>&nbsp;
+		<i class="fa fa-fw fa-angle-double-{{ collapsed ? 'right' : 'left' }}"></i>
 		<span>Collapse Sidebar</span>
 	</div>
 </nav>
