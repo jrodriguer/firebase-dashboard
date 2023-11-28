@@ -15,6 +15,6 @@ export const WENEA_USER_LOGIN = `${USER_ENDPOINT}/login/`;
 export const WENEA_USER_PROFILE = `${USER_ENDPOINT}/info/`;
 
 export const BASE_REST_HEADER = new HttpHeaders({
-  'Content-Type': 'application/json',
-  'X-App-Version': WENEA_VERSION,
+	'Content-Type': 'application/json',
+	'X-App-Version': WENEA_VERSION,
 });

@@ -13,19 +13,22 @@ import { AuthService } from '../auth/auth.service';
 export class LoginComponent implements OnDestroy {
 	private destroyed$ = new Subject<void>();
 
-	constructor(private router: Router, private authService: AuthService) {}
+constructor(
+		private router: Router,
+		private authService: AuthService
+	) {}
 
-  onSubmit(form: NgForm) {
-    const email = form.value.email;
-    const pw = form.value.password;
-    // this.authService.signIn(email, pw).then(
-    //   () => {
-    //     console.log('entra');
-    //     this.router.navigate(['dashboard']);
-    //   },
-    //   (err) => this._showErrorAlert(err)
-    // );
-  }
+	onSubmit(form: NgForm) {
+		// const email = form.value.email;
+		// const pw = form.value.password;
+		// this.authService.signIn(email, pw).then(
+		//   () => {
+		//     console.log('entra');
+		//     this.router.navigate(['dashboard']);
+		//   },
+		//   (err) => this._showErrorAlert(err)
+		// );
+	}
 
 	ngOnDestroy() {
 		this.destroyed$.next();

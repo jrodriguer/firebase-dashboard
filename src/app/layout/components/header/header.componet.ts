@@ -2,41 +2,41 @@ import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
-    selector: 'app-header',
-    templateUrl: './header.component.html',
-    styleUrls: ['./header.component.scss']
+	selector: 'app-header',
+	templateUrl: './header.component.html',
+	styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
-    public pushRightClass = '';
+	public pushRightClass = '';
 
-    constructor(public router: Router) {
-        this.router.events.subscribe((val) => {
-            if (val instanceof NavigationEnd && window.innerWidth <= 992 && this.isToggled()) {
-                this.toggleSidebar();
-            }
-        });
-    }
+	constructor(public router: Router) {
+		this.router.events.subscribe(val => {
+			if (val instanceof NavigationEnd && window.innerWidth <= 992 && this.isToggled()) {
+				this.toggleSidebar();
+			}
+		});
+	}
 
-    ngOnInit() {
-        this.pushRightClass = 'push-right';
-    }
+	ngOnInit() {
+		this.pushRightClass = 'push-right';
+	}
 
-    isToggled(): boolean {
-        const dom: HTMLBodyElement | null = document.querySelector('body');
-        return dom.classList.contains(this.pushRightClass);
-    }
+	isToggled(): boolean {
+		const dom: any = document.querySelector('body');
+		return dom.classList.contains(this.pushRightClass);
+	}
 
-    toggleSidebar() {
-        const dom: any = document.querySelector('body');
-        dom.classList.toggle(this.pushRightClass);
-    }
+	toggleSidebar() {
+		const dom: any = document.querySelector('body');
+		dom.classList.toggle(this.pushRightClass);
+	}
 
-    rltAndLtr() {
-        const dom: any = document.querySelector('body');
-        dom.classList.toggle('rtl');
-    }
+	rltAndLtr() {
+		const dom: any = document.querySelector('body');
+		dom.classList.toggle('rtl');
+	}
 
-    onLoggedout() {
-        localStorage.removeItem('isLoggedin');
-    }
+	onLoggedout() {
+		localStorage.removeItem('isLoggedin');
+	}
 }

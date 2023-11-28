@@ -24,30 +24,30 @@ fdescribe('LoginComponent', () => {
 	});
 
 	it('should have a form', () => {
-    const compiled = fixture.nativeElement;
-    const formElement = compiled.querySelector('form');
-    expect(formElement).toBeTruthy();
+		const compiled = fixture.nativeElement;
+		const formElement = compiled.querySelector('form');
+		expect(formElement).toBeTruthy();
 	});
 
 	it('should have email input with binding', () => {
-    const compiled = fixture.nativeElement;
-    const emailInput = compiled.querySelector('input[type="email"]');
-    expect(emailInput).toBeTruthy();
-    // You might want to add more assertions for specific input bindings (ngModel, required, etc.)
+		const compiled = fixture.nativeElement;
+		const emailInput = compiled.querySelector('input[type="email"]');
+		expect(emailInput).toBeTruthy();
+		// You might want to add more assertions for specific input bindings (ngModel, required, etc.)
 	});
 
 	it('should have password input with binding', () => {
-    const compiled = fixture.nativeElement;
-    const passwordInput = compiled.querySelector('input[type="password"]');
-    expect(passwordInput).toBeTruthy();
-    // Add assertions for password input bindings (ngModel, required, minlength, etc.)
+		const compiled = fixture.nativeElement;
+		const passwordInput = compiled.querySelector('input[type="password"]');
+		expect(passwordInput).toBeTruthy();
+		// Add assertions for password input bindings (ngModel, required, minlength, etc.)
 	});
 
 	it('should call submit method when form form is submitted', () => {
-    spyOn(component, 'onSubmit');
-    const form = fixture.nativeElement.querySelector('form');
-    // Trigger form submission
-    form.dispatchEvent(new Event('submit'));
+		spyOn(component, 'onSubmit');
+		const form = fixture.nativeElement.querySelector('form');
+		// Trigger form submission
+		form.dispatchEvent(new Event('submit'));
 
 		expect(component.onSubmit).toHaveBeenCalled();
 	});
