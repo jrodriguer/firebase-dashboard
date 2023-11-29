@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { PageHeaderModule } from '../../shared';
+import { PageHeaderModule, StatModule } from '../../shared';
 
 import { FormRoutingModule } from './translations-routing.module';
-import { FormComponent } from './translations.component';
+import { TranslationsComponent } from './translations.component';
 
 @NgModule({
-	imports: [CommonModule, FormRoutingModule, PageHeaderModule],
-	declarations: [FormComponent],
+	imports: [CommonModule, FormRoutingModule, PageHeaderModule, StatModule],
+	declarations: [TranslationsComponent],
 })
 export class TranslationsModule {}

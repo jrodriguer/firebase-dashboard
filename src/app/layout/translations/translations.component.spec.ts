@@ -2,12 +2,12 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { FormComponent } from './translations.component';
+import { TranslationsComponent } from './translations.component';
 import { TranslationsModule } from './translations.module';
 
-describe('FormComponent', () => {
-	let component: FormComponent;
-	let fixture: ComponentFixture<FormComponent>;
+describe('TranslationsComponent', () => {
+	let component: TranslationsComponent;
+	let fixture: ComponentFixture<TranslationsComponent>;
 
 	beforeEach(waitForAsync(() => {
 		TestBed.configureTestingModule({
@@ -16,7 +16,7 @@ describe('FormComponent', () => {
 	}));
 
 	beforeEach(() => {
-		fixture = TestBed.createComponent(FormComponent);
+		fixture = TestBed.createComponent(TranslationsComponent);
 		component = fixture.componentInstance;
 		fixture.detectChanges();
 	});
