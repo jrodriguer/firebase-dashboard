@@ -8,16 +8,16 @@ import {
 	BASE_REST_HEADER,
 	WENEA_USER_PROFILE,
 	WENEA_VERSION,
-} from '../../utils/constants';
+} from '../../../../utils/constants';
+
+const userSubject = new BehaviorSubject<User | null>(null);
 
 @Injectable({
 	providedIn: 'root',
 })
 export class AuthService {
-	private userSubject = new BehaviorSubject<User | null>(null);
-	public user$: Observable<User | null> = this.userSubject.asObservable();
-
-	public userToken: any;
+	public user$: Observable<User | null> = userSubject.asObservable();
+	public userToken: string = '';
 
 	constructor(private http: HttpClient) {}
 
