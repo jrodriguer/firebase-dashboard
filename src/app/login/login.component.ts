@@ -3,7 +3,7 @@ import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 
-import { AuthService } from '../auth/auth.service';
+import { AuthService } from '../core/services/auth/auth.service';
 
 @Component({
 	selector: 'app-login',
