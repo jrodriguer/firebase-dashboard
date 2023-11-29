@@ -8,11 +8,7 @@ import { StatModule } from '../../shared';
 import { NotificationComponent, TimelineComponent } from './components';
 
 @NgModule({
-	declarations: [
-		DashboardComponent,
-		TimelineComponent,
-		NotificationComponent,
-	],
+	declarations: [DashboardComponent, TimelineComponent, NotificationComponent],
 	imports: [
 		CommonModule,
 		NgbCarouselModule,
@@ -21,4 +17,4 @@ import { NotificationComponent, TimelineComponent } from './components';
 		RouterModule.forChild([{ path: '', component: DashboardComponent }]),
 	],
 })
-export class DashboardModule { }
+export class DashboardModule {}

@@ -6,60 +6,22 @@
 		</a>
 		<a
 			[routerLinkActive]="['router-link-active']"
-			[routerLink]="['/charts']"
-			class="list-group-item">
-			<i class="fa fa-fw fa-bar-chart-o"></i>&nbsp;
-			<span>Charts</span>
-		</a>
-		<a
-			[routerLinkActive]="['router-link-active']"
 			[routerLink]="['/tables']"
 			class="list-group-item">
 			<i class="fa fa-fw fa-table"></i>&nbsp;
-			<span>Tables</span>
+			<span>Messaging</span>
 		</a>
 		<a
 			[routerLinkActive]="['router-link-active']"
 			[routerLink]="['/forms']"
 			class="list-group-item">
 			<i class="fa fa-fw fa-edit"></i>&nbsp;
-			<span>Forms</span>
+			<span>Translations</span>
 		</a>
-
-		<!-- <div class="nested-menu">
-			<a (click)="addExpandClass('pages')" class="list-group-item">
-				<i class="fa fa-plus"></i>&nbsp;
-				<span>Menu</span>
-			</a>
-			<li [class.expand]="showMenu === 'pages'" class="nested">
-				<ul class="submenu">
-					<li>
-						<a href="javascript:void(0)">
-							<i class="fa fa-monument"></i>
-							<span>Submenu</span>
-						</a>
-					</li>
-					<li>
-						<a href="javascript:void(0)">
-							<i class="fa fa-monument"></i>
-							<span>Submenu</span>
-						</a>
-					</li>
-					<li>
-						<a href="javascript:void(0)">
-							<i class="fa fa-monument"></i>
-							<span>Submenu</span>
-						</a>
-					</li>
-				</ul>
-			</li>
-		</div> -->
-
 	</div>
 
 	<div (click)="toggleCollapsed()" [ngClass]="{ collapsed: collapsed }" class="toggle-button">
 		<i class="fa fa-fw fa-angle-double-{{ collapsed ? 'right' : 'left' }}"></i>
 		<span>Collapse Sidebar</span>
 	</div>
-
 </nav>

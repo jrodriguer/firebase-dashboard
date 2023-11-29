@@ -13,7 +13,7 @@ const routes: Routes = [
 				path: 'dashboard',
 				loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule),
 			},
-			{ path: 'forms', loadChildren: () => import('./form/form.module').then(m => m.FormModule) },
+			{ path: 'forms', loadChildren: () => import('./translations/translations.module').then(m => m.TranslationsModule) },
 		],
 	},
 ];

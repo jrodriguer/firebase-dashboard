@@ -2,8 +2,8 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { FormComponent } from './form.component';
-import { FormModule } from './form.module';
+import { FormComponent } from './translations.component';
+import { TranslationsModule } from './translations.module';
 
 describe('FormComponent', () => {
 	let component: FormComponent;
@@ -11,7 +11,7 @@ describe('FormComponent', () => {
 
 	beforeEach(waitForAsync(() => {
 		TestBed.configureTestingModule({
-			imports: [FormModule, BrowserAnimationsModule, RouterTestingModule],
+			imports: [TranslationsModule, BrowserAnimationsModule, RouterTestingModule],
 		}).compileComponents();
 	}));
 
