@@ -10,7 +10,7 @@ export class TranslationsComponent {
 	constructor(private translationsSrv: RemoteConfigService) {}
 
 	getListVersions() {
-		this.translationsSrv.listVersions().subscribe((response) => {
+		this.translationsSrv.listVersions().subscribe(response => {
 			console.log(response);
 		});
 	}
