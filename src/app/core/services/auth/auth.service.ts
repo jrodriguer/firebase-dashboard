@@ -21,8 +21,8 @@ export class AuthService {
 
 	constructor(private http: HttpClient) {}
 
-	login(user: string, pass: string): Observable<{}> {
-		return this.http.post<{}>(
+	login(user: string, pass: string): Observable<{ token: string }> {
+		return this.http.post<{ token: string }>(
 			WENEA_USER_LOGIN,
 			{
 				email: user,
@@ -30,6 +30,25 @@ export class AuthService {
 			},
 			{ headers: BASE_REST_HEADER }
 		);
+		// .pipe(
+		// 	map((response: any) => {
+		// 		console.log({ response });
+		// 		if (response && response.token) {
+		// 			this.sendFCMToken().subscribe(
+		// 				() => {
+		// 					console.log('FCM Token sent successfully after login.');
+		// 				},
+		// 				error => {
+		// 					console.error('Error sending FCM Token after login:', error);
+		// 				}
+		// 			);
+		// 		}
+		// 		return response;
+		// 	}),
+		// 	catchError(err => {
+		// 		return throwError(() => err);
+		// 	})
+		// );
 	}
 
 	loginToken(token: string): Observable<any> {
