@@ -1,16 +1,16 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { FormsModule } from '@angular/forms';
+import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { LoginComponent } from './login.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
-describe('LoginComponent', () => {
+fdescribe('LoginComponent', () => {
 	let component: LoginComponent;
 	let fixture: ComponentFixture<LoginComponent>;
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			imports: [HttpClientTestingModule, HttpClientTestingModule, FormsModule],
+			imports: [HttpClientTestingModule, ReactiveFormsModule],
 			declarations: [LoginComponent],
 		}).compileComponents();
 
@@ -23,32 +23,24 @@ describe('LoginComponent', () => {
 		expect(component).toBeTruthy();
 	});
 
-	it('should have a form', () => {
-		const compiled = fixture.nativeElement;
-		const formElement = compiled.querySelector('form');
-		expect(formElement).toBeTruthy();
-	});
+	it('should emit form data on form submission', fakeAsync(() => {
+    spyOn(component, 'onSubmit').and.callThrough();
 
-	it('should have email input with binding', () => {
-		const compiled = fixture.nativeElement;
-		const emailInput = compiled.querySelector('input[type="email"]');
-		expect(emailInput).toBeTruthy();
-		// You might want to add more assertions for specific input bindings (ngModel, required, etc.)
-	});
+    const compiled = fixture.nativeElement;
+    const form = compiled.querySelector('form');
 
-	it('should have password input with binding', () => {
-		const compiled = fixture.nativeElement;
-		const passwordInput = compiled.querySelector('input[type="password"]');
-		expect(passwordInput).toBeTruthy();
-		// Add assertions for password input bindings (ngModel, required, minlength, etc.)
-	});
+    component.credentialsForm.patchValue({
+      email: 'test@email.com',
+      password: 'password123'
+    });
 
-	it('should call submit method when form form is submitted', () => {
-		spyOn(component, 'onSubmit');
-		const form = fixture.nativeElement.querySelector('form');
-		// Trigger form submission
-		form.dispatchEvent(new Event('submit'));
+    fixture.detectChanges();
 
-		expect(component.onSubmit).toHaveBeenCalled();
-	});
+    form.dispatchEvent(new Event('submit'));
+
+		// To simulate the passage of time within the fakeAsync() task.
+    tick();
+
+    expect(component.onSubmit).toHaveBeenCalledWith(component.credentialsForm);
+  }));
 });
