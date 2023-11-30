@@ -80,13 +80,28 @@
 						<div class="form-group">
 							<label for="upload-file">File input</label>
 							<input type="file" id="upload-file" class="form-control-file" />
-							<button (click)="getListVersions()" class="btn btn-info btn-fill pull-right">
-								List Versions
-							</button>
 						</div>
 					</form>
 				</div>
 			</div>
 		</div>
+		<hr>
+		<div class="col-lg-4">
+			<div class="card card-default">
+				<div class="card-header">
+					<i class="fa fa-code-fork fa-fw"></i> Contol versions 
+				</div>
+				<div class="card-body">
+						<div class="form-group">
+							<p class="h2">Manage Remote Config template versions</p>
+							<p>This section describes how to manage versions of your Remote Config template. For more detail on how to create, modify and save templates programmatically, see Modify Remote Config programmatically.</p>
+							<p class="h3">List all stored versions of the Remote Config template</p>
+							<p>You can retrieve a list of all stored versions of the Remote Config template.</p>
+							<button type="button" (click)="getListVersions()" class="btn btn-secondary">&#10132;</button>
+						</div>
+				</div>
+			</div>
+		</div>
+
 	</div>
 </div>
