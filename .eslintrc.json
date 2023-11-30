@@ -12,8 +12,7 @@
 				"prettier"
 			],
 			"rules": {
-				"no-underscore-dangle": "off",
-				"@typescript-eslint/member-ordering": ["error"],
+				"no-underscore-dangle": "error",
 				"@angular-eslint/directive-selector": [
 					"error",
 					{
