@@ -1,24 +1,57 @@
-import { Address } from './ddbb.model';
+export interface Address {
+  city_user: string;
+  postal_code: string;
+  address: string;
+  country: string;
+}
+
+export interface Group {
+  id: number;
+  name: string;
+}
+
+export interface PrivateInfo {
+  name: string;
+  firstlastname: string;
+  secondlastname: string;
+  dni_type: string;
+  dni: string;
+  phone_number: string;
+  autocharge_enabled: boolean;
+  is_marketing_allowed: boolean;
+}
 
 export class User {
-	constructor(
-		public email: string,
-		public uid: string,
-		public name: string,
-		private _token: string,
-		private _tokenExpirationDate?: Date,
-		public address?: Address
-	) {}
+  public id: number;
+  public mail: string;
+  public id_tag: string;
+  public photo: string;
+  public groups: Group[];
+  public status: string;
+  public location: Address;
+  public privateInfo: PrivateInfo;
 
-	get token() {
-		if (!this._tokenExpirationDate || new Date() > this._tokenExpirationDate) {
-			return null;
-		}
+  constructor(
+    public email: string,
+    public name: string,
+    public address: Address,
+    private _token: string
+  ) {}
 
-		return this._token;
-	}
+  get token() {
+    if (!this.tokenExpirationDate || new Date() > this.tokenExpirationDate) {
+      return null;
+    }
+    return this._token;
+  }
 
-	set token(token) {
-		this._token = token!;
-	}
+  private get tokenExpirationDate(): Date | undefined {
+    // TODO: Implement logic to retrieve or calculate the token expiration date
+    return undefined; 
+  }
+
+  set token(token: string) {
+    this._token = token;
+  }
+
 }
