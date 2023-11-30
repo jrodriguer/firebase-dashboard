@@ -4,7 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { CoreModule } from './core.module';
+import { CoreModule } from './core';
 
 @NgModule({
 	declarations: [AppComponent],
