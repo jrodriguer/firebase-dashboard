@@ -24,23 +24,23 @@ fdescribe('LoginComponent', () => {
 	});
 
 	it('should emit form data on form submission', fakeAsync(() => {
-    spyOn(component, 'onSubmit').and.callThrough();
+		spyOn(component, 'onSubmit').and.callThrough();
 
-    const compiled = fixture.nativeElement;
-    const form = compiled.querySelector('form');
+		const compiled = fixture.nativeElement;
+		const form = compiled.querySelector('form');
 
-    component.credentialsForm.patchValue({
-      email: 'test@email.com',
-      password: 'password123'
-    });
+		component.credentialsForm.patchValue({
+			email: 'test@email.com',
+			password: 'password123',
+		});
 
-    fixture.detectChanges();
+		fixture.detectChanges();
 
-    form.dispatchEvent(new Event('submit'));
+		form.dispatchEvent(new Event('submit'));
 
 		// To simulate the passage of time within the fakeAsync() task.
-    tick();
+		tick();
 
-    expect(component.onSubmit).toHaveBeenCalledWith(component.credentialsForm);
-  }));
+		expect(component.onSubmit).toHaveBeenCalledWith(component.credentialsForm);
+	}));
 });

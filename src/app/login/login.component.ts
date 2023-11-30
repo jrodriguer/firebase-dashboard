@@ -20,12 +20,19 @@ export class LoginComponent implements OnDestroy {
 	) {
 		this.credentialsForm = new FormGroup({
 			email: new FormControl(''),
-			password: new FormControl('')
-		})
+			password: new FormControl(''),
+		});
 	}
 
 	onSubmit(form: FormGroup) {
-		this.authService.login(form.value.email, form.value.password);
+		this.authService.login(form.value.email, form.value.password).subscribe({
+			next: (res: { token: string }) => {
+				this.authService.loginToken(res.token).subscribe((res: { result: boolean }) => {
+					console.log(res);
+				});
+			},
+    	error: (err) => console.error(err),
+		});
 	}
 
 	onLoggedin() {
