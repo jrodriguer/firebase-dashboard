@@ -22,7 +22,7 @@ const mockListVersionsResponse: { versions: VersionInfo[] } = {
 	versions: mockVersions,
 };
 
-fdescribe('RemoteConfigService', () => {
+describe('RemoteConfigService', () => {
 	let service: RemoteConfigService;
 	let httpTestingController: HttpTestingController;
 

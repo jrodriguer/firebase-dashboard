@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, Observer, catchError, map, throwError } from 'rxjs';
+import { Injectable, computed, effect, signal } from '@angular/core';
+import { Observable, catchError, map, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import { User } from '../../models/user.model';
+import { User } from '../../models';
 import {
 	WENEA_USER_LOGIN,
 	BASE_REST_HEADER,
@@ -10,50 +10,72 @@ import {
 	WENEA_VERSION,
 } from '../../../../utils/constants';
 
-const userSubject = new BehaviorSubject<User | null>(null);
+type AuthState = {
+	user: User | null;
+	token: string | null;
+	is_auth: boolean;
+	loading: boolean;
+};
 
 @Injectable({
 	providedIn: 'root',
 })
 export class AuthService {
-	public user$: Observable<User | null> = userSubject.asObservable();
-	public userToken: string = '';
+	public accessTokenKey: string = '';
+	private storedToken = localStorage.getItem(this.accessTokenKey);
+	private state = signal<AuthState>({
+		user: null,
+		token: this.storedToken,
+		is_auth: this.storedToken !== null,
+		loading: false,
+	});
+	public token = computed(() => this.state().token);
+	public loading = computed(() => this.state().loading);
+	public isAuth = computed(() => this.state().is_auth);
+	public user = computed(() => this.state().user);
 
-	constructor(private http: HttpClient) {}
+	constructor(private http: HttpClient) {
+		effect(() => {
+			const token = this.token();
+			if(token !== null) {
+				localStorage.setItem(this.accessTokenKey, token);
+			} else {
+				localStorage.removeItem(this.accessTokenKey);
+			}
+		});
+	}
 
 	login(user: string, pass: string): Observable<{ token: string }> {
 		return this.http.post<{ token: string }>(
-			WENEA_USER_LOGIN,
-			{
-				email: user,
-				password: pass,
-			},
-			{ headers: BASE_REST_HEADER }
-		);
-		// .pipe(
-		// 	map((response: any) => {
-		// 		console.log({ response });
-		// 		if (response && response.token) {
-		// 			this.sendFCMToken().subscribe(
-		// 				() => {
-		// 					console.log('FCM Token sent successfully after login.');
-		// 				},
-		// 				error => {
-		// 					console.error('Error sending FCM Token after login:', error);
-		// 				}
-		// 			);
-		// 		}
-		// 		return response;
-		// 	}),
-		// 	catchError(err => {
-		// 		return throwError(() => err);
-		// 	})
-		// );
+      WENEA_USER_LOGIN,
+      {
+        email: user,
+        password: pass,
+      },
+      { headers: BASE_REST_HEADER }
+    ).pipe(
+      map((res: { token: string }) => {
+        this.state.set({
+          ...this.state(),
+          token: res.token,
+          is_auth: true,
+          loading: false,
+        });
+        return res;
+      }),
+      catchError((err) => {
+        this.state.set({
+          ...this.state(),
+          loading: false,
+        });
+        return throwError(() => err);
+      })
+    );
 	}
 
-	loginToken(token: string): Observable<any> {
-		this.userToken = token;
-		return this.getUserInfo().pipe(
+	loginToken(token: string): Observable<{ result: boolean }> {
+		this.accessTokenKey = token;
+		return this.getUserProfile().pipe(
 			map(() => ({ result: true })),
 			catchError(err => {
 				if (err.status !== 400) {
@@ -67,23 +89,16 @@ export class AuthService {
 
 	// logout() {}
 
-	sendFCMToken(): Observable<any> {
-		return new Observable((observer: Observer<{}>) => {});
-	}
-
-	// deleteFCMToken() {}
-
-	getUserInfo(): Observable<{}> {
+	public getUserProfile() {
 		const headers = this.buildSelfTokenHeader();
-		return this.http.get<{}>(WENEA_USER_PROFILE, { headers }).pipe(
+		return this.http.get<User>(WENEA_USER_PROFILE, { headers }).pipe(
+			map((user: User) => {
+				this.state.set({ ...this.state(), user });
+			}),
 			catchError(err => {
 				return throwError(() => err);
 			})
 		);
-	}
-
-	isLoggedIn(): boolean {
-		return this.userToken != undefined;
 	}
 
 	buildTokenHeader(token: string): HttpHeaders {
@@ -97,16 +112,11 @@ export class AuthService {
 
 	buildSelfTokenHeader(): HttpHeaders {
 		let header: HttpHeaders;
-		if (this.isLoggedIn()) {
-			header = this.buildTokenHeader(this.userToken);
+		if (this.isAuth()) {
+			header = this.buildTokenHeader(this.accessTokenKey);
 		} else {
 			header = BASE_REST_HEADER;
 		}
 		return header;
 	}
-
-	// private handleError(error: any): Promise<never> {
-	//   console.error('An error occurred:', error);
-	//   return Promise.reject(error.message || error);
-	// }
 }

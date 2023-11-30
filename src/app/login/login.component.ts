@@ -35,10 +35,6 @@ export class LoginComponent implements OnDestroy {
 		});
 	}
 
-	onLoggedin() {
-		localStorage.setItem('isLoggedin', 'true');
-	}
-
 	ngOnDestroy() {
 		this.destroyed$.next();
 		this.destroyed$.complete();

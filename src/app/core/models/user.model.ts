@@ -56,7 +56,6 @@ export interface User {
   status: string;
   location: Address;
   privateInfo: PrivateInfo;
-  paymentInfo: any[]; 
 }
 
 export interface Group {

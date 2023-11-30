@@ -1,6 +1,5 @@
 import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
-import { map, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
 import { AuthService } from './auth.service';
@@ -13,15 +12,6 @@ export class AuthGuard {
 	) {}
 
 	canActivate(): Observable<boolean> | Promise<boolean> | boolean {
-		return this.authSrv.user$.pipe(
-			map(user => {
-				return !!user;
-			}),
-			tap(isAuth => {
-				if (!isAuth) {
-					this.router.navigate(['login']);
-				}
-			})
-		);
+		return this.authSrv.isAuth();
 	}
 }

@@ -3,13 +3,15 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { of, throwError } from 'rxjs';
 
 import { AuthService } from './auth.service';
+import { WENEA_USER_LOGIN, WENEA_USER_PROFILE } from 'src/utils/constants';
+import { User } from '../../models';
 
 const credencialsObj = {
-	user: 'user@gmail.com',
+	user: 'user@email.com',
 	pass: '12345',
 };
 
-describe('AuthService', () => {
+fdescribe('AuthService', () => {
 	let service: AuthService;
 	let httpTestingController: HttpTestingController;
 
@@ -28,18 +30,16 @@ describe('AuthService', () => {
 	});
 
 	it('#login should return user logged token', (done: DoneFn) => {
-		const mockResponse = {};
+		const mockResponse = { token:  'someToken' };
 
 		service.login(credencialsObj.user, credencialsObj.pass).subscribe({
-			next: (res: {}) => {
+			next: (res: { token: string }) => {
 				expect(res).toBe(mockResponse);
 				done();
 			},
 		});
 
-		const request = httpTestingController.expectOne(
-			'https://backend-dehesa.wenea.site/api/v7/user/login/'
-		);
+		const request = httpTestingController.expectOne(WENEA_USER_LOGIN);
 		expect(request.request.method).toBe('POST');
 		expect(request.request.body).toEqual({
 			email: credencialsObj.user,
@@ -49,13 +49,13 @@ describe('AuthService', () => {
 		request.flush(mockResponse);
 	});
 
-	it('#loginToken should set user token and return success reponse when getUserInfo success', (done: DoneFn) => {
+	it('#loginToken should set user token and return success reponse when getUserProfile success', (done: DoneFn) => {
 		const token = 'someToken';
-		const mockUser = {};
-		spyOn(service, 'getUserInfo').and.returnValue(of(mockUser));
+		const mockUser = {} as User;
+		spyOn(service, 'getUserProfile').and.returnValue(of(mockUser));
 
 		service.loginToken(token).subscribe({
-			next: (res: any) => {
+			next: (res: { result: boolean }) => {
 				expect(res.result).toBe(true);
 				done();
 			},
@@ -65,14 +65,14 @@ describe('AuthService', () => {
 		});
 	});
 
-	it('#loginToken should handle error when getUserInfo fails', (done: DoneFn) => {
+	it('#loginToken should handle error when getUserProfile fails', (done: DoneFn) => {
 		const token = 'someToken';
 
-		// Simulating an error response from getUserInfo
+		// Simulating an error response from getUserProfile
 		// if != 400 invalid token
 		// else token is valid but user has no profile
 		const errorResponse = { status: 500 };
-		spyOn(service, 'getUserInfo').and.returnValue(throwError(errorResponse));
+		spyOn(service, 'getUserProfile').and.returnValue(throwError(errorResponse));
 
 		service.loginToken(token).subscribe({
 			next: () => {
@@ -81,13 +81,13 @@ describe('AuthService', () => {
 			error: (err: { status: number }) => {
 				expect(service.userToken).toEqual(token);
 				expect(err).toEqual(errorResponse);
-				expect(service.getUserInfo).toHaveBeenCalled();
+				expect(service.getUserProfile).toHaveBeenCalled();
 				done();
 			},
 		});
 	});
 
-	it('#getUserInfo should return user info object and udpate attributes', (done: DoneFn) => {
+	it('#getUserProfile should return user info object and udpate attributes', (done: DoneFn) => {
 		const mockResponse = {
 			user: {
 				mail: 'test@example.com',
@@ -97,18 +97,15 @@ describe('AuthService', () => {
 			},
 		};
 
-		service.getUserInfo().subscribe(() => {
+		service.getUserProfile().subscribe(() => {
 			// Assert that the user attributes have been updated correctly
 			// expect(service.user).toEqual(mockResponse.user);
 			// expect(service.userMail).toEqual(mockResponse.user.mail);
-
 			done();
 		});
 
 		// Ensure that the HTTP request was made with the proper headers
-		const req = httpTestingController.expectOne(
-			'https://backend-dehesa.wenea.site/api/v7/user/info/'
-		);
+		const req = httpTestingController.expectOne(WENEA_USER_PROFILE);
 		expect(req.request.method).toEqual('GET');
 		expect(req.request.headers.get('Content-Type')).toEqual('application/json');
 
@@ -119,10 +116,10 @@ describe('AuthService', () => {
 		httpTestingController.verify();
 	});
 
-	it('#getUserInfo should handle error for status 400', (done: DoneFn) => {
+	it('#getUserProfile should handle error for status 400', (done: DoneFn) => {
 		const errorResponse = { status: 400 };
 
-		service.getUserInfo().subscribe({
+		service.getUserProfile().subscribe({
 			next: () => {},
 			error: err => {
 				expect(err.status).toEqual(errorResponse.status);
@@ -130,17 +127,9 @@ describe('AuthService', () => {
 			},
 		});
 
-		const req = httpTestingController.expectOne(
-			'https://backend-dehesa.wenea.site/api/v7/user/info/'
-		);
+		const req = httpTestingController.expectOne(WENEA_USER_PROFILE);
 		req.flush('', { status: 400, statusText: 'Bad request' });
 
 		httpTestingController.verify();
 	});
-
-	it('#logout should clear user session and remove FCM Token', (done: DoneFn) => {});
-
-	it('#sendFCMToken should send FCM token to backend', (done: DoneFn) => {});
-
-	it('#deleteFCMToken should delete FCM token', (done: DoneFn) => {});
 });
