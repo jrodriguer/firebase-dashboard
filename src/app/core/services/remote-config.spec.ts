@@ -42,7 +42,7 @@ fdescribe('RemoteConfigService', () => {
 
 	it('#listVersions should retrive versions successfuly', () => {
 		service.listVersions().subscribe(response => {
-			expect(response.versions).toEqual(mockListVersionsResponse);
+			expect(response).toEqual(mockListVersionsResponse);
 		});
 
 		const req = httpTestingController.expectOne(`${environment.apiUrl}/list-versions`);
