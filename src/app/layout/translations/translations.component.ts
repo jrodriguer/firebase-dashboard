@@ -12,8 +12,13 @@ export class TranslationsComponent {
 	constructor(private translationsSrv: RemoteConfigService) {}
 
 	public getListVersions() {
-		this.translationsSrv.listVersions().subscribe((version) => {
+		this.translationsSrv.listVersions().subscribe(version => {
 			this.listVersions.push(version);
 		});
+	}
+
+	public getCurrentVersion() {
+		// this.translationsSrv.currentVersion().subscribe((version) => {
+		// });
 	}
 }

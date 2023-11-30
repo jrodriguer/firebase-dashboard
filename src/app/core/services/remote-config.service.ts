@@ -17,13 +17,11 @@ export class RemoteConfigService {
 			// 'Authorization': ''
 		});
 
-		return this.http
-			.get<RemoteVersions>(`${environment.apiUrl}/list-versions`, {headers})
-			.pipe(
-				catchError(err => {
-					return throwError(() => err);
-				})
-			);
+		return this.http.get<RemoteVersions>(`${environment.apiUrl}/list-versions`, { headers }).pipe(
+			catchError(err => {
+				return throwError(() => err);
+			})
+		);
 	}
 
 	public currentVersion() {
@@ -32,12 +30,10 @@ export class RemoteConfigService {
 			// 'Authorization': ''
 		});
 
-		return this.http
-			.get<VersionInfo>(`${environment.apiUrl}/download-template`, {headers})
-			.pipe(
-				catchError(err => {
-					return throwError(() => err);
-				})
-			);
+		return this.http.get<VersionInfo>(`${environment.apiUrl}/download-template`, { headers }).pipe(
+			catchError(err => {
+				return throwError(() => err);
+			})
+		);
 	}
 }
