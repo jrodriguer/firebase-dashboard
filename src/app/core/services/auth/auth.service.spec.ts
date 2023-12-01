@@ -6,7 +6,7 @@ import { AuthService } from './auth.service';
 import { WENEA_USER_LOGIN, WENEA_USER_PROFILE } from 'src/utils/constants';
 import { User } from '../../models';
 
-fdescribe('AuthService', () => {
+describe('AuthService', () => {
 	let service: AuthService;
 	let httpTestingController: HttpTestingController;
 

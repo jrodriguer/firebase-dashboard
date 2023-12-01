@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RemoteConfigService } from 'src/app/core';
-import { RemoteVersions } from 'src/app/core/models/remote-config.model';
+import { RemoteVersions, VersionInfo } from 'src/app/core/models/remote-config.model';
 
 @Component({
 	selector: 'app-translations',
@@ -9,16 +9,36 @@ import { RemoteVersions } from 'src/app/core/models/remote-config.model';
 })
 export class TranslationsComponent {
 	public listVersions: RemoteVersions[] = [];
-	constructor(private translationsSrv: RemoteConfigService) {}
 
-	public getListVersions() {
-		this.translationsSrv.listVersions().subscribe(version => {
+	constructor(private remoteConfigSrv: RemoteConfigService) {}
+
+	public getListVersions(): RemoteVersions[]  {
+		this.remoteConfigSrv.listVersions().subscribe(version => {
 			this.listVersions.push(version);
+		});
+
+		return this.listVersions;
+	}
+
+	public getCurrentTemplate() {
+		this.remoteConfigSrv.currentVersion().subscribe((template: VersionInfo) => {
+			const jsonData = JSON.stringify(template, null, 2);
+			this.downloadFile(jsonData, 'version_info.json');
 		});
 	}
 
-	public getCurrentVersion() {
-		// this.translationsSrv.currentVersion().subscribe((version) => {
-		// });
+	public downloadFile(data: string, filename: string) {
+		const blob = new Blob([data], { type: 'application/json' });
+		const url = window.URL.createObjectURL(blob);
+
+		const anchor = document.createElement('a');
+		anchor.href = url;
+		anchor.download = filename;
+
+		document.body.appendChild(anchor);
+		anchor.click();
+
+		document.body.removeChild(anchor);
+		window.URL.revokeObjectURL(url);
 	}
 }
