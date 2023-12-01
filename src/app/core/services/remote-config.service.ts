@@ -11,7 +11,7 @@ import { RemoteVersions, VersionInfo } from '../models/remote-config.model';
 export class RemoteConfigService {
 	constructor(private http: HttpClient) {}
 
-	public listVersions() {
+	public listVersions(): Observable<RemoteVersions> {
 		const headers = new HttpHeaders({
 			'Content-Type': 'application/json',
 			// 'Authorization': ''
@@ -32,7 +32,6 @@ export class RemoteConfigService {
 
 		return this.http.get<VersionInfo>(`${environment.apiUrl}/download-template`, { headers }).pipe(
 			map((template) => {
-				console.log(template)
 				return template;
 			}),
 			catchError(err => {

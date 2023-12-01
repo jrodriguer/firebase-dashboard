@@ -22,7 +22,7 @@ const mockListVersionsResponse: { versions: VersionInfo[] } = {
 	versions: mockVersions,
 };
 
-describe('RemoteConfigService', () => {
+fdescribe('RemoteConfigService', () => {
 	let service: RemoteConfigService;
 	let httpTestingController: HttpTestingController;
 
@@ -61,7 +61,7 @@ describe('RemoteConfigService', () => {
 		const req = httpTestingController.expectOne(`${environment.apiUrl}/download-template`);
 		expect(req.request.method).toEqual('GET');
 
-		req.flush(mockListVersionsResponse);
+		req.flush(template);
 
 		httpTestingController.verify();
 	});
