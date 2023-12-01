@@ -34,6 +34,9 @@ fdescribe('AuthService', () => {
 		service.login(credencialsObj.user, credencialsObj.pass).subscribe({
 			next: (res: { token: string }) => {
 				expect(res).toBe(mockResponse);
+				expect(service.token()).toBe(mockResponse.token);
+				expect(service.isAuth()).toBe(true);
+				expect(service.loading()).toBe(false);
 				done();
 			},
 		});
@@ -72,7 +75,9 @@ fdescribe('AuthService', () => {
 		// if != 400 invalid token
 		// else token is valid but user has no profile
 		const errorResponse = { status: 500 };
-		spyOn(service, 'getUserProfile').and.returnValue(throwError(errorResponse));
+		spyOn(service, 'getUserProfile').and.returnValue(
+			throwError(() => ({ status: errorResponse.status }))
+		);
 
 		service.loginToken(token).subscribe({
 			next: () => {
