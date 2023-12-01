@@ -6,11 +6,6 @@ import { AuthService } from './auth.service';
 import { WENEA_USER_LOGIN, WENEA_USER_PROFILE } from 'src/utils/constants';
 import { User } from '../../models';
 
-const credencialsObj = {
-	user: 'user@email.com',
-	pass: '12345',
-};
-
 fdescribe('AuthService', () => {
 	let service: AuthService;
 	let httpTestingController: HttpTestingController;
@@ -30,7 +25,11 @@ fdescribe('AuthService', () => {
 	});
 
 	it('#login should return user logged token', (done: DoneFn) => {
-		const mockResponse = { token:  'someToken' };
+		const credencialsObj = {
+			user: 'user@email.com',
+			pass: '12345',
+		};
+		const mockResponse = { token: 'someToken' };
 
 		service.login(credencialsObj.user, credencialsObj.pass).subscribe({
 			next: (res: { token: string }) => {
@@ -52,11 +51,12 @@ fdescribe('AuthService', () => {
 	it('#loginToken should set user token and return success reponse when getUserProfile success', (done: DoneFn) => {
 		const token = 'someToken';
 		const mockUser = {} as User;
-		spyOn(service, 'getUserProfile').and.returnValue(of(mockUser));
+		const getUserProfileSpy = spyOn(service, 'getUserProfile').and.returnValue(of(mockUser));
 
 		service.loginToken(token).subscribe({
 			next: (res: { result: boolean }) => {
 				expect(res.result).toBe(true);
+				expect(getUserProfileSpy).toHaveBeenCalledWith();
 				done();
 			},
 			error: (err: Error) => {
@@ -86,12 +86,10 @@ fdescribe('AuthService', () => {
 		});
 	});
 
-	it('#getUserProfile should return user info object and udpate attributes', (done: DoneFn) => {
+	it('#getUserProfile should return user info object', (done: DoneFn) => {
 		const mockResponse = {} as User;
 
 		service.getUserProfile().subscribe(() => {
-			// Assert that the user attributes have been updated correctly
-			// ...
 			done();
 		});
 
