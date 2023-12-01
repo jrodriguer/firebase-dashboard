@@ -21,7 +21,7 @@ type AuthState = {
 	providedIn: 'root',
 })
 export class AuthService {
-	public accessTokenKey: string = '';
+	private accessTokenKey: string = '';
 	private storedToken = localStorage.getItem(this.accessTokenKey);
 	private state = signal<AuthState>({
 		user: null,
