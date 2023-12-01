@@ -87,13 +87,15 @@ export class AuthService {
 		);
 	}
 
+	// TODO: Add logout method.
 	// logout() {}
 
-	public getUserProfile() {
+	public getUserProfile():Observable<User> {
 		const headers = this.buildSelfTokenHeader();
 		return this.http.get<User>(WENEA_USER_PROFILE, { headers }).pipe(
 			map((user: User) => {
 				this.state.set({ ...this.state(), user });
+				return user;
 			}),
 			catchError(err => {
 				return throwError(() => err);

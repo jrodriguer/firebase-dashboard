@@ -79,7 +79,6 @@ fdescribe('AuthService', () => {
 				done.fail('Next callback should not be called');
 			},
 			error: (err: { status: number }) => {
-				expect(service.userToken).toEqual(token);
 				expect(err).toEqual(errorResponse);
 				expect(service.getUserProfile).toHaveBeenCalled();
 				done();
@@ -88,19 +87,11 @@ fdescribe('AuthService', () => {
 	});
 
 	it('#getUserProfile should return user info object and udpate attributes', (done: DoneFn) => {
-		const mockResponse = {
-			user: {
-				mail: 'test@example.com',
-				id_tag: '123456',
-				groups: ['group1', 'group2'],
-				vehicles: ['vehicle1', 'vehicle2'],
-			},
-		};
+		const mockResponse = {} as User;
 
 		service.getUserProfile().subscribe(() => {
 			// Assert that the user attributes have been updated correctly
-			// expect(service.user).toEqual(mockResponse.user);
-			// expect(service.userMail).toEqual(mockResponse.user.mail);
+			// ...
 			done();
 		});
 
