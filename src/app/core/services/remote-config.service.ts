@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, throwError } from 'rxjs';
+import { Observable, catchError, map, throwError } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
 import { RemoteVersions, VersionInfo } from '../models/remote-config.model';
@@ -24,13 +24,17 @@ export class RemoteConfigService {
 		);
 	}
 
-	public currentVersion() {
+	public currentVersion(): Observable<VersionInfo> {
 		const headers = new HttpHeaders({
 			'Content-Type': 'application/json',
 			// 'Authorization': ''
 		});
 
 		return this.http.get<VersionInfo>(`${environment.apiUrl}/download-template`, { headers }).pipe(
+			map((template) => {
+				console.log(template)
+				return template;
+			}),
 			catchError(err => {
 				return throwError(() => err);
 			})
