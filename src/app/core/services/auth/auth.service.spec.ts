@@ -91,10 +91,11 @@ fdescribe('AuthService', () => {
 		});
 	});
 
-	it('#getUserProfile should return user info object', (done: DoneFn) => {
+	it('#getUserProfile should return user profile object', (done: DoneFn) => {
 		const mockResponse = {} as User;
 
 		service.getUserProfile().subscribe(() => {
+			expect(service.user()).toBe(mockResponse);
 			done();
 		});
 
@@ -116,6 +117,7 @@ fdescribe('AuthService', () => {
 		service.getUserProfile().subscribe({
 			next: () => {},
 			error: err => {
+				expect(service.user).not;
 				expect(err.status).toEqual(errorResponse.status);
 				done();
 			},
