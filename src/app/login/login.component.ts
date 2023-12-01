@@ -28,6 +28,7 @@ export class LoginComponent implements OnDestroy {
 		this.authService.login(form.value.email, form.value.password).subscribe({
 			next: (res: { token: string }) => {
 				this.authService.loginToken(res.token).subscribe((res: { result: boolean }) => {
+					this.router.navigateByUrl('/dashboard');
 					console.log(res);
 				});
 			},
