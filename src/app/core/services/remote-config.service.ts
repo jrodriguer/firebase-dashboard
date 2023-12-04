@@ -18,7 +18,7 @@ export class RemoteConfigService {
 		});
 
 		return this.http.get<VersionInfo>(`${environment.apiUrl}/list-versions`, { headers }).pipe(
-			map((version) => {
+			map(version => {
 				return version;
 			}),
 			catchError(err => {
@@ -56,9 +56,13 @@ export class RemoteConfigService {
 		});
 
 		return this.http
-			.put<string>(`${environment.apiUrl}/update-template`, { name, expression, parameter, defaultValue, conditionValue}, { headers })
+			.put<string>(
+				`${environment.apiUrl}/update-template`,
+				{ name, expression, parameter, defaultValue, conditionValue },
+				{ headers }
+			)
 			.pipe(
-				map((res) => {
+				map(res => {
 					console.log(res);
 				}),
 				catchError(err => {

@@ -9,14 +9,15 @@ fdescribe('RemoteConfigService', () => {
 	let service: RemoteConfigService;
 	let httpTestingController: HttpTestingController;
 
-	const expectedVersion: VersionInfo = { 
+	const expectedVersion: VersionInfo = {
 		versionNumber: '10',
 		updateOrigin: 'ADMIN_SDK_NODE',
 		updateType: 'INCREMENTAL_UPDATE',
 		updateUser: {
 			name: 'firebase-adminsdk-rx6vt@flutter-news-app-6a808.iam.gserviceaccount.com',
 			email: 'firebase-adminsdk-rx6vt@flutter-news-app-6a808.iam.gserviceaccount.com',
-			imageUrl: 'https://lh3.googleusercontent.com/a/ACg8ocLHinnrhpl3Oo1vuRO6E7GWMtcOXfPvYWjVbzOzAsC-=mo',
+			imageUrl:
+				'https://lh3.googleusercontent.com/a/ACg8ocLHinnrhpl3Oo1vuRO6E7GWMtcOXfPvYWjVbzOzAsC-=mo',
 		},
 		updateTime: 'Tue, 21 Nov 2023 15:33:45 GMT',
 	};
@@ -54,12 +55,18 @@ fdescribe('RemoteConfigService', () => {
 			expression: '',
 			parameter: '',
 			defaultValue: '',
-			conditionValue: ''
+			conditionValue: '',
 		};
 
-		service.updateVersion(body.name, body.expression, body.parameter, body.defaultValue, body.conditionValue).subscribe(() => {
-			//
-		});
+		service
+			.updateVersion(
+				body.name,
+				body.expression,
+				body.parameter,
+				body.defaultValue,
+				body.conditionValue
+			)
+			.subscribe();
 
 		const req = httpTestingController.expectOne(`${environment.apiUrl}/update-template`);
 		expect(req.request.method).toEqual('PUT');
