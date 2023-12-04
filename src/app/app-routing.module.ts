@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './core';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
+	{ path: '', redirectTo: 'login', pathMatch: 'full' },
 	{
 		path: 'login',
 		loadChildren: () => import('./login/login.module').then(m => m.LoginModule),
@@ -13,13 +13,10 @@ const routes: Routes = [
 		loadChildren: () => import('./layout/layout.module').then(m => m.LayoutModule),
 	},
 	{
-    path: 'dashboard',
-    canActivate: [AuthGuard],
-    loadChildren: () =>
-      import('./layout/dashboard/dashboard.module').then(
-        (m) => m.DashboardModule
-      )
-  }
+		path: 'dashboard',
+		canActivate: [AuthGuard],
+		loadChildren: () => import('./layout/dashboard/dashboard.module').then(m => m.DashboardModule),
+	},
 ];
 
 @NgModule({
