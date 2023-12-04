@@ -101,31 +101,19 @@
 					<table class="table">
 						<thead>
 							<tr>
-								<th>#</th>
+								<th>Version Number</th>
 								<th>Update Origin</th>
-								<th>Update User</th>
 								<th>Update Time</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<th scope="row">10</th>
-								<td>ADMIN_SDK_NODE</td>
-								<td></td>
-								<td></td>
-							</tr>
-							<tr>
-								<th scope="row">9</th>
-								<td>ADMIN_SDK_NODE</td>
-								<td></td>
-								<td></td>
-							</tr>
-							<tr>
-								<th scope="row">8</th>
-								<td>ADMIN_SDK_NODE</td>
-								<td></td>
-								<td></td>
-							</tr>
+							@for (version of listVersions; track $index) {
+								<tr>
+									<th scope="row">{{ version.versionNumber }}</th>
+									<td>{{ version.updateOrigin }}</td>
+									<td>{{ version.updateTime | date: "medium"}}</td>
+								</tr>
+							}
 						</tbody>
 					</table>
 				</div>
