@@ -12,10 +12,7 @@ export class RemoteConfigService {
 	constructor(private http: HttpClient) {}
 
 	public listVersions(): Observable<VersionInfo> {
-		const headers = new HttpHeaders({
-			'Content-Type': 'application/json',
-			// 'Authorization': ''
-		});
+		const headers = new HttpHeaders({'Content-Type': 'application/json'});
 
 		return this.http.get<VersionInfo>(`${environment.apiUrl}/list-versions`, { headers }).pipe(
 			map(version => {
@@ -28,10 +25,7 @@ export class RemoteConfigService {
 	}
 
 	public currentVersion(): Observable<VersionInfo> {
-		const headers = new HttpHeaders({
-			'Content-Type': 'application/json',
-			// 'Authorization': ''
-		});
+		const headers = new HttpHeaders({'Content-Type': 'application/json'});
 
 		return this.http.get<VersionInfo>(`${environment.apiUrl}/download-template`, { headers }).pipe(
 			map(template => {
@@ -50,10 +44,7 @@ export class RemoteConfigService {
 		defaultValue: string,
 		conditionValue: string
 	) {
-		const headers = new HttpHeaders({
-			'Content-Type': 'application/json',
-			// 'Authorization': ''
-		});
+		const headers = new HttpHeaders({'Content-Type': 'application/json'});
 
 		return this.http
 			.put<string>(
