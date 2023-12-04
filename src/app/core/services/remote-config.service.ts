@@ -31,12 +31,40 @@ export class RemoteConfigService {
 		});
 
 		return this.http.get<VersionInfo>(`${environment.apiUrl}/download-template`, { headers }).pipe(
-			map((template) => {
+			map(template => {
 				return template;
 			}),
 			catchError(err => {
 				return throwError(() => err);
 			})
 		);
+	}
+
+	public updateVersion(
+		name: string,
+		expression: string,
+		parameter: string,
+		defaultValue: string,
+		conditionValue: string
+	) {
+		const headers = new HttpHeaders({
+			'Content-Type': 'application/json',
+			// 'Authorization': ''
+		});
+
+		return this.http
+			.put<string>(
+				`${environment.apiUrl}/update-template`,
+				{ name, expression, parameter, defaultValue, conditionValue },
+				{ headers }
+			)
+			.pipe(
+				map(res => {
+					console.log(res);
+				}),
+				catchError(err => {
+					return throwError(() => err);
+				})
+			);
 	}
 }

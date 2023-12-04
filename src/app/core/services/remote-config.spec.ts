@@ -53,6 +53,25 @@ fdescribe('RemoteConfigService', () => {
 		httpTestingController.verify();
 	});
 
+	it('#updateVersion should retrive successfuly response', () => {
+		const body = {
+			name: '',
+			expression: '',
+			parameter: '',
+			defaultValue: '',
+			conditionValue: ''
+		};
+
+		service.updateVersion(body.name, body.expression, body.parameter, body.defaultValue, body.conditionValue).subscribe(() => {
+			//
+		});
+
+		const req = httpTestingController.expectOne(`${environment.apiUrl}/update-template`);
+		expect(req.request.method).toEqual('PUT');
+
+		httpTestingController.verify();
+	});
+
 	it('#currentVersion should retrive versions successfuly', () => {
 		service.currentVersion().subscribe(response => {
 			expect(response).toEqual(template);
