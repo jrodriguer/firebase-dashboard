@@ -9,7 +9,7 @@ fdescribe('RemoteConfigService', () => {
 	let service: RemoteConfigService;
 	let httpTestingController: HttpTestingController;
 
-	const expectedVersion: VersionInfo = {
+	const version: VersionInfo = {
 		versionNumber: '10',
 		updateOrigin: 'ADMIN_SDK_NODE',
 		updateType: 'INCREMENTAL_UPDATE',
@@ -21,6 +21,7 @@ fdescribe('RemoteConfigService', () => {
 		},
 		updateTime: 'Tue, 21 Nov 2023 15:33:45 GMT',
 	};
+	const expectedVersions: VersionInfo[] = [version];
 
 	beforeEach(() => {
 		TestBed.configureTestingModule({
@@ -37,14 +38,14 @@ fdescribe('RemoteConfigService', () => {
 	});
 
 	it('#listVersions should retrive versions successfuly', () => {
-		service.listVersions().subscribe((response: VersionInfo) => {
-			expect(response).toEqual(expectedVersion);
+		service.listVersions().subscribe((response: VersionInfo[]) => {
+			expect(response).toEqual(expectedVersions);
 		});
 
 		const req = httpTestingController.expectOne(`${environment.apiUrl}/list-versions`);
 		expect(req.request.method).toEqual('GET');
 
-		req.flush(expectedVersion);
+		req.flush(expectedVersions);
 
 		httpTestingController.verify();
 	});
@@ -76,13 +77,13 @@ fdescribe('RemoteConfigService', () => {
 
 	it('#currentVersion should retrive versions successfuly', () => {
 		service.currentVersion().subscribe(response => {
-			expect(response).toEqual(expectedVersion);
+			expect(response).toEqual(version);
 		});
 
 		const req = httpTestingController.expectOne(`${environment.apiUrl}/download-template`);
 		expect(req.request.method).toEqual('GET');
 
-		req.flush(expectedVersion);
+		req.flush(version);
 
 		httpTestingController.verify();
 	});
