@@ -32,7 +32,7 @@ export class LoginComponent implements OnDestroy {
 					console.log(res);
 				});
 			},
-    	error: (err) => console.error(err),
+			error: err => console.error(err),
 		});
 	}
 

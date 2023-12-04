@@ -15,12 +15,8 @@ describe('LoginComponent', () => {
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			imports: [
-				HttpClientTestingModule, 
-				ReactiveFormsModule, 
-				RouterTestingModule.withRoutes([])
-			],
-			declarations: [LoginComponent]
+			imports: [HttpClientTestingModule, ReactiveFormsModule, RouterTestingModule.withRoutes([])],
+			declarations: [LoginComponent],
 		}).compileComponents();
 
 		fixture = TestBed.createComponent(LoginComponent);
@@ -34,7 +30,9 @@ describe('LoginComponent', () => {
 		expect(component).toBeTruthy();
 	});
 
-	it('should emit form data on form submission and navigate to /dashboard', fakeAsync((done: DoneFn) => {
+	it('should emit form data on form submission and navigate to /dashboard', fakeAsync((
+		done: DoneFn
+	) => {
 		spyOn(component, 'onSubmit').and.callThrough();
 
 		const navigateSpy = spyOn(router, 'navigateByUrl').and.stub();
@@ -50,12 +48,14 @@ describe('LoginComponent', () => {
 
 		form.dispatchEvent(new Event('submit'));
 
-		service.login(component.credentialsForm.value.email, component.credentialsForm.value.password).subscribe({
-			next: () => {
-				expect(navigateSpy).toHaveBeenCalledWith('/dashboard');
-				done();
-			},
-		});
+		service
+			.login(component.credentialsForm.value.email, component.credentialsForm.value.password)
+			.subscribe({
+				next: () => {
+					expect(navigateSpy).toHaveBeenCalledWith('/dashboard');
+					done();
+				},
+			});
 
 		// To simulate the passage of time within the fakeAsync() task.
 		tick();

@@ -37,7 +37,7 @@ export class AuthService {
 	constructor(private http: HttpClient) {
 		effect(() => {
 			const token = this.token();
-			if(token !== null) {
+			if (token !== null) {
 				localStorage.setItem(this.accessTokenKey, token);
 			} else {
 				localStorage.removeItem(this.accessTokenKey);
@@ -46,31 +46,33 @@ export class AuthService {
 	}
 
 	login(user: string, pass: string): Observable<{ token: string }> {
-		return this.http.post<{ token: string }>(
-      WENEA_USER_LOGIN,
-      {
-        email: user,
-        password: pass,
-      },
-      { headers: BASE_REST_HEADER }
-    ).pipe(
-      map((res: { token: string }) => {
-        this.state.set({
-          ...this.state(),
-          token: res.token,
-          is_auth: true,
-          loading: false,
-        });
-        return res;
-      }),
-      catchError((err) => {
-        this.state.set({
-          ...this.state(),
-          loading: false,
-        });
-        return throwError(() => err);
-      })
-    );
+		return this.http
+			.post<{ token: string }>(
+				WENEA_USER_LOGIN,
+				{
+					email: user,
+					password: pass,
+				},
+				{ headers: BASE_REST_HEADER }
+			)
+			.pipe(
+				map((res: { token: string }) => {
+					this.state.set({
+						...this.state(),
+						token: res.token,
+						is_auth: true,
+						loading: false,
+					});
+					return res;
+				}),
+				catchError(err => {
+					this.state.set({
+						...this.state(),
+						loading: false,
+					});
+					return throwError(() => err);
+				})
+			);
 	}
 
 	loginToken(token: string): Observable<{ result: boolean }> {
@@ -90,7 +92,7 @@ export class AuthService {
 	// TODO: Add logout method.
 	// logout() {}
 
-	public getUserProfile():Observable<User> {
+	public getUserProfile(): Observable<User> {
 		const headers = this.buildSelfTokenHeader();
 		return this.http.get<User>(WENEA_USER_PROFILE, { headers }).pipe(
 			map((user: User) => {
