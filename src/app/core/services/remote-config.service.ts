@@ -11,13 +11,10 @@ import { VersionInfo } from '../models/remote-config.model';
 export class RemoteConfigService {
 	constructor(private http: HttpClient) {}
 
-	public listVersions(): Observable<VersionInfo> {
+	public listVersions(): Observable<VersionInfo[]> {
 		const headers = new HttpHeaders({'Content-Type': 'application/json'});
 
-		return this.http.get<VersionInfo>(`${environment.apiUrl}/list-versions`, { headers }).pipe(
-			map(version => {
-				return version;
-			}),
+		return this.http.get<VersionInfo[]>(`${environment.apiUrl}/list-versions`, { headers }).pipe(
 			catchError(err => {
 				return throwError(() => err);
 			})
@@ -53,9 +50,6 @@ export class RemoteConfigService {
 				{ headers }
 			)
 			.pipe(
-				map(res => {
-					console.log(res);
-				}),
 				catchError(err => {
 					return throwError(() => err);
 				})
