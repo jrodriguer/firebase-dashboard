@@ -1,7 +1,3 @@
-export interface RemoteVersions {
-	versions: VersionInfo[];
-}
-
 export interface VersionInfo {
 	versionNumber: string;
 	updateOrigin: string;

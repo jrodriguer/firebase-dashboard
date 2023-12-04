@@ -5,26 +5,21 @@ import { RemoteConfigService } from './remote-config.service';
 import { environment } from 'src/environments/environment';
 import { VersionInfo } from '../models/remote-config.model';
 
-const template: VersionInfo = {
-	versionNumber: '10',
-	updateOrigin: 'ADMIN_SDK_NODE',
-	updateType: 'INCREMENTAL_UPDATE',
-	updateUser: {
-		name: 'firebase-adminsdk-rx6vt@flutter-news-app-6a808.iam.gserviceaccount.com',
-		email: 'firebase-adminsdk-rx6vt@flutter-news-app-6a808.iam.gserviceaccount.com',
-		imageUrl:
-			'https://lh3.googleusercontent.com/a/ACg8ocLHinnrhpl3Oo1vuRO6E7GWMtcOXfPvYWjVbzOzAsC-=mo',
-	},
-	updateTime: 'Tue, 21 Nov 2023 15:33:45 GMT',
-};
-const mockVersions: VersionInfo[] = [];
-const mockListVersionsResponse: { versions: VersionInfo[] } = {
-	versions: mockVersions,
-};
-
 fdescribe('RemoteConfigService', () => {
 	let service: RemoteConfigService;
 	let httpTestingController: HttpTestingController;
+
+	const expectedVersion: VersionInfo = { 
+		versionNumber: '10',
+		updateOrigin: 'ADMIN_SDK_NODE',
+		updateType: 'INCREMENTAL_UPDATE',
+		updateUser: {
+			name: 'firebase-adminsdk-rx6vt@flutter-news-app-6a808.iam.gserviceaccount.com',
+			email: 'firebase-adminsdk-rx6vt@flutter-news-app-6a808.iam.gserviceaccount.com',
+			imageUrl: 'https://lh3.googleusercontent.com/a/ACg8ocLHinnrhpl3Oo1vuRO6E7GWMtcOXfPvYWjVbzOzAsC-=mo',
+		},
+		updateTime: 'Tue, 21 Nov 2023 15:33:45 GMT',
+	};
 
 	beforeEach(() => {
 		TestBed.configureTestingModule({
@@ -41,14 +36,14 @@ fdescribe('RemoteConfigService', () => {
 	});
 
 	it('#listVersions should retrive versions successfuly', () => {
-		service.listVersions().subscribe(response => {
-			expect(response).toEqual(mockListVersionsResponse);
+		service.listVersions().subscribe((response: VersionInfo) => {
+			expect(response).toEqual(expectedVersion);
 		});
 
 		const req = httpTestingController.expectOne(`${environment.apiUrl}/list-versions`);
 		expect(req.request.method).toEqual('GET');
 
-		req.flush({ versions: mockVersions });
+		req.flush(expectedVersion);
 
 		httpTestingController.verify();
 	});
@@ -74,13 +69,13 @@ fdescribe('RemoteConfigService', () => {
 
 	it('#currentVersion should retrive versions successfuly', () => {
 		service.currentVersion().subscribe(response => {
-			expect(response).toEqual(template);
+			expect(response).toEqual(expectedVersion);
 		});
 
 		const req = httpTestingController.expectOne(`${environment.apiUrl}/download-template`);
 		expect(req.request.method).toEqual('GET');
 
-		req.flush(template);
+		req.flush(expectedVersion);
 
 		httpTestingController.verify();
 	});

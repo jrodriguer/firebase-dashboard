@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, catchError, map, throwError } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
-import { RemoteVersions, VersionInfo } from '../models/remote-config.model';
+import { VersionInfo } from '../models/remote-config.model';
 
 @Injectable({
 	providedIn: 'root',
@@ -11,13 +11,16 @@ import { RemoteVersions, VersionInfo } from '../models/remote-config.model';
 export class RemoteConfigService {
 	constructor(private http: HttpClient) {}
 
-	public listVersions(): Observable<RemoteVersions> {
+	public listVersions(): Observable<VersionInfo> {
 		const headers = new HttpHeaders({
 			'Content-Type': 'application/json',
 			// 'Authorization': ''
 		});
 
-		return this.http.get<RemoteVersions>(`${environment.apiUrl}/list-versions`, { headers }).pipe(
+		return this.http.get<VersionInfo>(`${environment.apiUrl}/list-versions`, { headers }).pipe(
+			map((version) => {
+				return version;
+			}),
 			catchError(err => {
 				return throwError(() => err);
 			})
@@ -53,13 +56,9 @@ export class RemoteConfigService {
 		});
 
 		return this.http
-			.put<string>(
-				`${environment.apiUrl}/update-template`,
-				{ name, expression, parameter, defaultValue, conditionValue },
-				{ headers }
-			)
+			.put<string>(`${environment.apiUrl}/update-template`, { name, expression, parameter, defaultValue, conditionValue}, { headers })
 			.pipe(
-				map(res => {
+				map((res) => {
 					console.log(res);
 				}),
 				catchError(err => {
