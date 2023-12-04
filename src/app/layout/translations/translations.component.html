@@ -5,7 +5,7 @@
 			<div class="card card-default">
 				<div class="card-header"><i class="fa fa-pencil fa-fw"></i> Updater form</div>
 				<div class="card-body">
-					<form>
+					<form [formGroup]="updaterForm" (ngSubmit)="onSubmit(updaterForm)">
 						<div class="row">
 							<div class="col-md-5">
 								<div class="form-group">
@@ -13,6 +13,7 @@
 									<input
 										type="text"
 										id="up-name"
+										formControlName="conditionName"
 										class="form-control"
 										placeholder="Name condition"
 										value="android" />
@@ -24,6 +25,7 @@
 									<input
 										type="text"
 										id="up-condition"
+										formControlName="conditionExpression"
 										class="form-control"
 										placeholder="Expression condition"
 										value="device.os == 'android'" />
@@ -35,6 +37,7 @@
 									<input
 										type="text"
 										id="param-set"
+										formControlName="parameter"
 										class="form-control"
 										placeholder="Parameter to set"
 										value="header_text" />
@@ -48,6 +51,7 @@
 									<input
 										type="text"
 										id="default-val"
+										formControlName="defaultValue"
 										class="form-control"
 										placeholder="Default value"
 										value="A Gryffindor must be brave, talented and helpful." />
@@ -59,6 +63,7 @@
 									<input
 										type="text"
 										id="condition-val"
+										formControlName="conditionValue"
 										class="form-control"
 										placeholder="Condition value"
 										value="A Droid must be brave, talented and helpful." />
@@ -90,7 +95,8 @@
 				<div class="card-body table-responsive">
 					<p>
 						You can retrieve a list of all stored versions of the Remote Config template, or
-						download the current Template <button (click)="getCurrentTemplate()" class="border btn-link">here</button>.
+						download the current Template
+						<button class="border btn-link">here</button>.
 					</p>
 					<table class="table">
 						<thead>
