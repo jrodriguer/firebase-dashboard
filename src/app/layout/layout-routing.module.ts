@@ -14,7 +14,7 @@ const routes: Routes = [
 				loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule),
 			},
 			{
-				path: 'forms',
+				path: 'translations',
 				loadChildren: () =>
 					import('./translations/translations.module').then(m => m.TranslationsModule),
 			},
