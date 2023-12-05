@@ -18,6 +18,11 @@ const routes: Routes = [
 				loadChildren: () =>
 					import('./translations/translations.module').then(m => m.TranslationsModule),
 			},
+			{
+				path: '',
+				loadChildren: () =>
+					import('./translations/translations.module').then(m => m.TranslationsModule),
+			},
 		],
 	},
 ];
