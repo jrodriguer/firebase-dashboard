@@ -1,8 +1,6 @@
 import { Component, OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs';
 
-import { RemoteConfigService } from 'src/app/core';
-
 @Component({
 	selector: 'app-messaging',
 	templateUrl: './messaging.component.html',
@@ -11,7 +9,7 @@ import { RemoteConfigService } from 'src/app/core';
 export class MessagingComponent implements OnDestroy {
 	private destroy$: Subject<void> = new Subject<void>();
 
-	constructor(private remoteConfigSrv: RemoteConfigService) {}
+	constructor() {}
 
 	ngOnDestroy(): void {
 		this.destroy$.next();
