@@ -5,7 +5,6 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { MessagingModule } from './messaging.module';
 import { MessagingComponent } from './messaging.component';
 
-
 describe('MessagingComponent', () => {
 	let component: MessagingComponent;
 	let fixture: ComponentFixture<MessagingComponent>;

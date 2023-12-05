@@ -11,12 +11,14 @@ export class MessagingService {
 	constructor(private http: HttpClient) {}
 
 	sendMessage(title: string, message: string) {
-		const headers = new HttpHeaders({'Content-Type': 'application/json'});
+		const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-		return this.http.post<any>(`${environment.apiUrl}/send-message`, {title, body: message }, { headers }).pipe(
-			catchError(err => {
-				return throwError(() => err);
-			})
-		)
+		return this.http
+			.post<any>(`${environment.apiUrl}/send-message`, { title, body: message }, { headers })
+			.pipe(
+				catchError(err => {
+					return throwError(() => err);
+				})
+			);
 	}
 }

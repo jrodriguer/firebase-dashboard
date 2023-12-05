@@ -25,7 +25,7 @@ describe('MessagingService', () => {
 	it('#sendMessage should retrive successfuly response', () => {
 		const messageMock = {
 			title: 'Title',
-			body: 'Message'
+			body: 'Message',
 		};
 
 		service.sendMessage(messageMock.title, messageMock.body).subscribe();
