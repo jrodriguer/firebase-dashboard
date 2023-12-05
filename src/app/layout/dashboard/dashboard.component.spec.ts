@@ -3,31 +3,21 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { DashboardComponent } from './dashboard.component';
-// import { environment } from '../../../environments/environment';
-
-// class MockNgbModalRef {
-//   componentInstance = {
-//     prompt: undefined,
-//     title: undefined,
-//   };
-//   result: Promise<any> = new Promise((resolve) => resolve(true));
-// }
+import { StatModule } from 'src/app/shared';
+import { NotificationComponent, TimelineComponent } from './components';
 
 describe('DashboardComponent', () => {
 	let component: DashboardComponent;
 	let fixture: ComponentFixture<DashboardComponent>;
-	// let ngbModal: NgbModal;
-	// let mockModalRef: MockNgbModalRef = new MockNgbModalRef();
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			imports: [HttpClientTestingModule, HttpClientTestingModule, NgbModule],
-			declarations: [DashboardComponent],
+			imports: [HttpClientTestingModule, HttpClientTestingModule, NgbModule, StatModule],
+			declarations: [DashboardComponent, TimelineComponent, NotificationComponent],
 		}).compileComponents();
 
 		fixture = TestBed.createComponent(DashboardComponent);
 		component = fixture.componentInstance;
-		// ngbModal = TestBed.get(NgbModal);
 
 		fixture.detectChanges();
 	});
