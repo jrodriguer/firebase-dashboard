@@ -16,8 +16,7 @@
 	"lint-staged": {
 		"*.ts": [
 			"prettier --write",
-			"eslint --quiet --fix",
-			"git add"
+			"eslint --quiet --fix"
 		],
 		"*.{html,scss,json}": [
 			"prettier --write",
