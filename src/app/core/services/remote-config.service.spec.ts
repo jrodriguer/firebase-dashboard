@@ -5,7 +5,7 @@ import { RemoteConfigService } from './remote-config.service';
 import { environment } from 'src/environments/environment';
 import { VersionInfo } from '../models/remote-config.model';
 
-fdescribe('RemoteConfigService', () => {
+describe('RemoteConfigService', () => {
 	let service: RemoteConfigService;
 	let httpTestingController: HttpTestingController;
 
