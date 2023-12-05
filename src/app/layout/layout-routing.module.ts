@@ -19,9 +19,8 @@ const routes: Routes = [
 					import('./translations/translations.module').then(m => m.TranslationsModule),
 			},
 			{
-				path: '',
-				loadChildren: () =>
-					import('./translations/translations.module').then(m => m.TranslationsModule),
+				path: 'messaging',
+				loadChildren: () => import('./messaging/messaging.module').then(m => m.MessagingModule),
 			},
 		],
 	},
