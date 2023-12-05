@@ -18,9 +18,8 @@
 			"prettier --write",
 			"eslint --quiet --fix"
 		],
-		"*.{html,scss,json}": [
-			"prettier --write",
-			"git add"
+		"*.{json,ts,html}": [
+			"prettier --write --ignore-unknown"
 		]
 	},
 	"private": true,
