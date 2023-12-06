@@ -96,7 +96,7 @@
 					<p>
 						You can retrieve a list of all stored versions of the Remote Config template, or
 						download the current Template
-						<button class="border btn-link">here</button>.
+						<button (click)="getCurrentTemplate()" class="border btn-link">here</button>.
 					</p>
 					<table class="table">
 						<thead>
@@ -124,6 +124,19 @@
 							}
 						</tbody>
 					</table>
+				</div>
+			</div>
+		</div>
+
+		<div class="col col-xl-6 col-lg-12">
+			<div class="card mb-3">
+				<div class="card-header"><i class="fa fa-code-fork fa-fw"></i> Current template</div>
+				<div class="card-body" id="current-template">
+					@if (currentTemplate) {
+						<pre class="vertical-scroll">{{ currentTemplate }}</pre>
+					} @else {
+						<p>No hay plantilla actual disponible.</p>
+					}
 				</div>
 			</div>
 		</div>

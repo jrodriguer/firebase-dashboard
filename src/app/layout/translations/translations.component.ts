@@ -14,6 +14,7 @@ export class TranslationsComponent implements OnInit, OnDestroy {
 	public updaterForm: FormGroup;
 	private refreshInterval$ = interval(10000);
 	private destroy$: Subject<void> = new Subject<void>();
+	public currentTemplate: string = '';
 
 	constructor(private remoteConfigSrv: RemoteConfigService) {
 		this.updaterForm = new FormGroup({
@@ -26,8 +27,10 @@ export class TranslationsComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnInit(): void {
+		console.log('ngOnInit');
 		this.getListVersions();
 		this.setupAutoRefresh();
+		this.getCurrentTemplate();
 	}
 
 	ngOnDestroy(): void {
@@ -43,6 +46,7 @@ export class TranslationsComponent implements OnInit, OnDestroy {
 			)
 			.subscribe((versions: VersionInfo[]) => {
 				this.listVersions = versions;
+				this.getCurrentTemplate();
 			});
 	}
 
@@ -59,6 +63,7 @@ export class TranslationsComponent implements OnInit, OnDestroy {
 	}
 
 	public getListVersions(): Subscription {
+		console.log('entra');
 		return this.remoteConfigSrv.listVersions().subscribe({
 			next: (versions: VersionInfo[]) => {
 				this.listVersions = versions;
@@ -72,13 +77,13 @@ export class TranslationsComponent implements OnInit, OnDestroy {
 
 	public getCurrentTemplate(): void {
 		this.remoteConfigSrv.downloadTemplate().subscribe((template: VersionInfo) => {
-			const jsonData = JSON.stringify(template, null, 2);
-			this.downloadFile(jsonData, 'current_template.json');
+			this.currentTemplate = JSON.stringify(template, null, 2);
 		});
 	}
 
-	public downloadFile(data: string, filename: string): void {
-		const blob = new Blob([data], { type: 'application/json' });
+	public downloadFile(): void {
+		const filename = 'current_template.json';
+		const blob = new Blob([this.currentTemplate], { type: 'application/json' });
 		const url = window.URL.createObjectURL(blob);
 
 		const anchor = document.createElement('a');
