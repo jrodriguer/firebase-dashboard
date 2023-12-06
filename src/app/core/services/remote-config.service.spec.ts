@@ -50,7 +50,7 @@ describe('RemoteConfigService', () => {
 		httpTestingController.verify();
 	});
 
-	it('#updateVersion should retrive successfuly response', () => {
+	it('#updateTemplate should retrive successfuly response', () => {
 		const body = {
 			name: '',
 			expression: '',
@@ -60,7 +60,7 @@ describe('RemoteConfigService', () => {
 		};
 
 		service
-			.updateVersion(
+			.updateTemplate(
 				body.name,
 				body.expression,
 				body.parameter,
@@ -75,8 +75,8 @@ describe('RemoteConfigService', () => {
 		httpTestingController.verify();
 	});
 
-	it('#currentVersion should retrive versions successfuly', () => {
-		service.currentVersion().subscribe(response => {
+	it('#downloadTemplate should retrive versions successfuly', () => {
+		service.downloadTemplate().subscribe(response => {
 			expect(response).toEqual(version);
 		});
 

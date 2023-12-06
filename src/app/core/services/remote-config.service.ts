@@ -21,7 +21,7 @@ export class RemoteConfigService {
 		);
 	}
 
-	public currentVersion(): Observable<VersionInfo> {
+	public downloadTemplate(): Observable<VersionInfo> {
 		const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
 		return this.http.get<VersionInfo>(`${environment.apiUrl}/download-template`, { headers }).pipe(
@@ -34,7 +34,7 @@ export class RemoteConfigService {
 		);
 	}
 
-	public updateVersion(
+	public updateTemplate(
 		name: string,
 		expression: string,
 		parameter: string,
