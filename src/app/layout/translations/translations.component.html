@@ -107,11 +107,19 @@
 							</tr>
 						</thead>
 						<tbody>
-							@for (version of listVersions; track $index) {
+							@if (listVersions.length > 0) {
+								<ng-container>
+									@for (version of listVersions; track $index) {
+										<tr>
+											<th scope="row">{{ version.versionNumber }}</th>
+											<td>{{ version.updateOrigin }}</td>
+											<td>{{ version.updateTime | date: 'medium' }}</td>
+										</tr>
+									}
+								</ng-container>
+							} @else {
 								<tr>
-									<th scope="row">{{ version.versionNumber }}</th>
-									<td>{{ version.updateOrigin }}</td>
-									<td>{{ version.updateTime | date: 'medium' }}</td>
+									<td colspan="3" class="text-center">No hay versiones disponibles</td>
 								</tr>
 							}
 						</tbody>

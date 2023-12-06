@@ -58,12 +58,15 @@ export class TranslationsComponent implements OnInit, OnDestroy {
 			.subscribe();
 	}
 
-	public getListVersions(): VersionInfo[] {
-		this.remoteConfigSrv.listVersions().subscribe((versions: VersionInfo[]) => {
-			this.listVersions = versions;
-		});
-
-		return this.listVersions;
+	public getListVersions(): void {
+		this.remoteConfigSrv.listVersions().subscribe(
+			(versions: VersionInfo[]) => {
+				this.listVersions = versions;
+			},
+			error => {
+				console.error(error);
+			}
+		);
 	}
 
 	public getCurrentTemplate(): void {
