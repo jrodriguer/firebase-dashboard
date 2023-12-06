@@ -48,7 +48,7 @@ export class TranslationsComponent implements OnInit, OnDestroy {
 
 	public onSubmit(form: FormGroup): Subscription {
 		return this.remoteConfigSrv
-			.updateVersion(
+			.updateTemplate(
 				form.value.conditionName,
 				form.value.conditionExpression,
 				form.value.parameter,
@@ -58,19 +58,20 @@ export class TranslationsComponent implements OnInit, OnDestroy {
 			.subscribe();
 	}
 
-	public getListVersions(): void {
-		this.remoteConfigSrv.listVersions().subscribe(
-			(versions: VersionInfo[]) => {
+	public getListVersions(): Subscription {
+		return this.remoteConfigSrv.listVersions().subscribe({
+			next: (versions: VersionInfo[]) => {
 				this.listVersions = versions;
 			},
-			error => {
+			error: error => {
 				console.error(error);
-			}
-		);
+				this.listVersions = [];
+			},
+		});
 	}
 
 	public getCurrentTemplate(): void {
-		this.remoteConfigSrv.currentVersion().subscribe((template: VersionInfo) => {
+		this.remoteConfigSrv.downloadTemplate().subscribe((template: VersionInfo) => {
 			const jsonData = JSON.stringify(template, null, 2);
 			this.downloadFile(jsonData, 'current_template.json');
 		});
