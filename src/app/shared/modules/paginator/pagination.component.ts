@@ -18,7 +18,6 @@ export class PaginationComponent implements OnChanges {
 	constructor() {}
 
 	ngOnChanges(changes: SimpleChanges) {
-		// set page when items array first set or changed
 		if (changes['items'].currentValue !== changes['items'].previousValue) {
 			this.setPage(this.initialPage);
 		}
@@ -26,14 +25,8 @@ export class PaginationComponent implements OnChanges {
 
 	setPage(page: number) {
 		if (!this.items?.length) return;
-
-		// get new pager object for specified page
 		this.pager = this.paginate(this.items.length, page, this.pageSize, this.maxPages);
-
-		// get new page of items from items array
 		const pageOfItems = this.items.slice(this.pager.startIndex, this.pager.endIndex + 1);
-
-		// call change page function in parent component
 		this.changePage.emit(pageOfItems);
 	}
 
@@ -43,10 +36,9 @@ export class PaginationComponent implements OnChanges {
 		pageSize: number = 10,
 		maxPages: number = 10
 	): Pager {
-		// calculate total pages
 		const totalPages = Math.ceil(totalItems / pageSize);
 
-		// ensure current page isn't out of range
+		// Ensure current page isn't out of range
 		if (currentPage < 1) {
 			currentPage = 1;
 		} else if (currentPage > totalPages) {
@@ -84,7 +76,6 @@ export class PaginationComponent implements OnChanges {
 		// create an array of pages to ng-repeat in the pager control
 		const pages = Array.from(Array(endPage + 1 - startPage).keys()).map(i => startPage + i);
 
-		// return object with all pager properties required by the view
 		return {
 			totalItems,
 			currentPage,

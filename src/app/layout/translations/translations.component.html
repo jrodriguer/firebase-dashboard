@@ -81,7 +81,10 @@
 				<div class="card-body">
 					<form action="">
 						<div class="form-group">
-							<label for="upload-file">File input</label>
+							<p>
+								Publishing a template replaces the entire existing config template with the updated
+								file and increments the template version by one.
+							</p>
 							<input type="file" id="upload-file" class="form-control-file" />
 						</div>
 					</form>
@@ -101,29 +104,37 @@
 					<table class="table">
 						<thead>
 							<tr>
-								<th>Version Number</th>
-								<th>Update Origin</th>
-								<th>Update Time</th>
+								<th>
+									<a (click)="sortBy('version')">Version Number {{ sortIcon('version') }}</a>
+								</th>
+								<th>
+									<a (click)="sortBy('version')">Update Origin{{ sortIcon('origin') }}</a>
+								</th>
+								<th>
+									<a (click)="sortBy('version')">Update Time{{ sortIcon('time') }}</a>
+								</th>
 							</tr>
 						</thead>
 						<tbody>
-							@if (listVersions.length > 0) {
-								<ng-container>
-									@for (version of listVersions; track $index) {
-										<tr>
-											<th scope="row">{{ version.versionNumber }}</th>
-											<td>{{ version.updateOrigin }}</td>
-											<td>{{ version.updateTime | date: 'medium' }}</td>
-										</tr>
-									}
-								</ng-container>
-							} @else {
+							@for (version of versions; track $index) {
 								<tr>
-									<td colspan="3" class="text-center">No hay versiones disponibles</td>
+									<th scope="row">{{ version.versionNumber }}</th>
+									<td>{{ version.updateOrigin }}</td>
+									<td>{{ version.updateTime | date: 'medium' }}</td>
+								</tr>
+							}
+							@if (loading) {
+								<tr>
+									<td colspan="3" class="text-center py-3">
+										<span class="spinner-border spinner-border-lg align-center"></span>
+									</td>
 								</tr>
 							}
 						</tbody>
 					</table>
+				</div>
+				<div class="card-footer pb-0 pt-3">
+					<app-pagination [items]="items" (changePage)="onChangePage($event)"></app-pagination>
 				</div>
 			</div>
 		</div>
@@ -133,9 +144,11 @@
 				<div class="card-header"><i class="fa fa-code-fork fa-fw"></i> Current template</div>
 				<div class="card-body" id="current-template">
 					@if (currentTemplate) {
-						<pre class="vertical-scroll">{{ currentTemplate }}</pre>
+						<code>
+							<pre class="vertical-scroll">{{ currentTemplate | json }}</pre>
+						</code>
 					} @else {
-						<p>No hay plantilla actual disponible.</p>
+						<p>No current template available.</p>
 					}
 				</div>
 			</div>
