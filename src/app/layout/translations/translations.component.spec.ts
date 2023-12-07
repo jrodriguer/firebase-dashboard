@@ -15,7 +15,7 @@ describe('TranslationsComponent', () => {
 	let remoteConfigServiceSpy: jasmine.SpyObj<RemoteConfigService>;
 
 	beforeEach(waitForAsync(() => {
-		const spy = jasmine.createSpyObj('RemoteConfigService', ['listVersions']);
+		const spy = jasmine.createSpyObj('RemoteConfigService', ['versions']);
 		TestBed.configureTestingModule({
 			imports: [
 				TranslationsModule,
@@ -59,7 +59,7 @@ describe('TranslationsComponent', () => {
 
 		component.getListVersions();
 
-		expect(component.listVersions).toEqual(versions);
+		expect(component.versions).toEqual(versions);
 	});
 
 	it('should handle listVersions error', () => {
@@ -68,6 +68,6 @@ describe('TranslationsComponent', () => {
 
 		component.getListVersions();
 
-		expect(component.listVersions).toEqual([]);
+		expect(component.versions).toEqual([]);
 	});
 });
