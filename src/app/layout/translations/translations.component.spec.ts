@@ -29,7 +29,11 @@ describe('TranslationsComponent', () => {
 	let remoteConfigServiceSpy: jasmine.SpyObj<RemoteConfigService>;
 
 	beforeEach(waitForAsync(() => {
-		const spy = jasmine.createSpyObj('RemoteConfigService', ['listVersions', 'downloadTemplate']);
+		const spy = jasmine.createSpyObj('RemoteConfigService', [
+			'listVersions',
+			'downloadTemplate',
+			'updateTemplate',
+		]);
 		TestBed.configureTestingModule({
 			imports: [
 				TranslationsModule,
@@ -49,6 +53,7 @@ describe('TranslationsComponent', () => {
 		fixture = TestBed.createComponent(TranslationsComponent);
 		remoteConfigServiceSpy.listVersions.and.returnValue(of(versions));
 		remoteConfigServiceSpy.downloadTemplate.and.returnValue(of(version));
+		remoteConfigServiceSpy.updateTemplate.and.returnValue(of(''));
 		component = fixture.componentInstance;
 		fixture.detectChanges();
 	});
@@ -71,5 +76,32 @@ describe('TranslationsComponent', () => {
 		component.getListVersions();
 
 		expect(component.versions).toEqual([]);
+	});
+
+	it('should update template on form submission', () => {
+		const formValue = {
+			conditionName: 'testName',
+			conditionExpression: 'testExpression',
+			parameter: 'testParameter',
+			defaultValue: 'testDefault',
+			conditionValue: 'testValue',
+		};
+
+		const form = component.updaterForm;
+		form.controls['conditionName'].setValue(formValue.conditionName);
+		form.controls['conditionExpression'].setValue(formValue.conditionExpression);
+		form.controls['parameter'].setValue(formValue.parameter);
+		form.controls['defaultValue'].setValue(formValue.defaultValue);
+		form.controls['conditionValue'].setValue(formValue.conditionValue);
+
+		component.onSubmit(component.updaterForm);
+
+		expect(remoteConfigServiceSpy.updateTemplate).toHaveBeenCalledWith(
+			formValue.conditionName,
+			formValue.conditionExpression,
+			formValue.parameter,
+			formValue.defaultValue,
+			formValue.conditionValue
+		);
 	});
 });
