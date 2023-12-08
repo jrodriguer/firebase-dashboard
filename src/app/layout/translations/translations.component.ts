@@ -10,11 +10,15 @@ import { VersionInfo } from 'src/app/core/models/remote-config.model';
 	styleUrls: ['./translations.component.scss'],
 })
 export class TranslationsComponent implements OnInit, OnDestroy {
-	public listVersions: VersionInfo[] = [];
+	public versions: Array<VersionInfo> = [];
 	public updaterForm: FormGroup;
 	private refreshInterval$ = interval(10000);
 	private destroy$: Subject<void> = new Subject<void>();
+	public loading: boolean = false;
 	public currentTemplate: string = '';
+	public sortOrder: number = 0;
+	public sortProperty: string = '';
+	public items: Array<VersionInfo> = [];
 
 	constructor(private remoteConfigSrv: RemoteConfigService) {
 		this.updaterForm = new FormGroup({
@@ -27,7 +31,7 @@ export class TranslationsComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnInit(): void {
-		console.log('ngOnInit');
+		this.loading = true;
 		this.getListVersions();
 		this.setupAutoRefresh();
 		this.getCurrentTemplate();
@@ -45,7 +49,7 @@ export class TranslationsComponent implements OnInit, OnDestroy {
 				takeUntil(this.destroy$)
 			)
 			.subscribe((versions: VersionInfo[]) => {
-				this.listVersions = versions;
+				this.versions = versions;
 				this.getCurrentTemplate();
 			});
 	}
@@ -63,16 +67,44 @@ export class TranslationsComponent implements OnInit, OnDestroy {
 	}
 
 	public getListVersions(): Subscription {
-		console.log('entra');
 		return this.remoteConfigSrv.listVersions().subscribe({
-			next: (versions: VersionInfo[]) => {
-				this.listVersions = versions;
+			next: (data: VersionInfo[]) => {
+				this.versions = data;
+				this.loading = false;
 			},
 			error: error => {
 				console.error(error);
-				this.listVersions = [];
+				this.versions = [];
 			},
 		});
+	}
+
+	onChangePage(rangePage: Array<VersionInfo>): void {
+		this.versions = rangePage;
+	}
+
+	sortBy(property: keyof VersionInfo): void {
+		this.sortOrder = property === this.sortProperty ? this.sortOrder * -1 : 1;
+		this.sortProperty = property;
+		this.items = [
+			...this.items.sort((a, b) => {
+				let result = 0;
+				if (a[property] < b[property]) {
+					result = -1;
+				}
+				if (a[property] > b[property]) {
+					result = 1;
+				}
+				return result * this.sortOrder;
+			}),
+		];
+	}
+
+	sortIcon(property: string): string {
+		if (property === this.sortProperty) {
+			return this.sortOrder === 1 ? '☝️' : '👇';
+		}
+		return '';
 	}
 
 	public getCurrentTemplate(): void {
