@@ -61,6 +61,7 @@ describe('TranslationsComponent', () => {
 		component.getListVersions();
 
 		expect(component.versions).toEqual(versions);
+		expect(component.loading).toBeFalse();
 	});
 
 	it('should handle listVersions error', () => {
