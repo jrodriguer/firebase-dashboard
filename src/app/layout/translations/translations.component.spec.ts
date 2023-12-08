@@ -64,7 +64,7 @@ describe('TranslationsComponent', () => {
 
 	it('should handle listVersions error', () => {
 		const error = new Error('Error fetching versions');
-		remoteConfigServiceSpy.listVersions.and.returnValue(throwError(error));
+		remoteConfigServiceSpy.listVersions.and.returnValue(throwError(() => error));
 
 		component.getListVersions();
 

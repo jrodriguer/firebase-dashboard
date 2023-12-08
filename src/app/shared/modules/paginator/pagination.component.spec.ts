@@ -4,7 +4,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { PaginationModule } from './pagination.module';
 import { PaginationComponent, Pager } from './pagination.component';
 
-fdescribe('PaginationComponent', () => {
+describe('PaginationComponent', () => {
 	let component: PaginationComponent;
 	let fixture: ComponentFixture<PaginationComponent>;
 
