@@ -9,13 +9,27 @@ import { TranslationsModule } from './translations.module';
 import { RemoteConfigService } from '../../core';
 import { VersionInfo } from '../../core/models/remote-config.model';
 
+const version: VersionInfo = {
+	versionNumber: '10',
+	updateOrigin: 'ADMIN_SDK_NODE',
+	updateType: 'INCREMENTAL_UPDATE',
+	updateUser: {
+		name: 'firebase-adminsdk-rx6vt@flutter-news-app-6a808.iam.gserviceaccount.com',
+		email: 'firebase-adminsdk-rx6vt@flutter-news-app-6a808.iam.gserviceaccount.com',
+		imageUrl:
+			'https://lh3.googleusercontent.com/a/ACg8ocLHinnrhpl3Oo1vuRO6E7GWMtcOXfPvYWjVbzOzAsC-=mo',
+	},
+	updateTime: 'Tue, 21 Nov 2023 15:33:45 GMT',
+};
+const versions: VersionInfo[] = [version];
+
 describe('TranslationsComponent', () => {
 	let component: TranslationsComponent;
 	let fixture: ComponentFixture<TranslationsComponent>;
 	let remoteConfigServiceSpy: jasmine.SpyObj<RemoteConfigService>;
 
 	beforeEach(waitForAsync(() => {
-		const spy = jasmine.createSpyObj('RemoteConfigService', ['versions']);
+		const spy = jasmine.createSpyObj('RemoteConfigService', ['listVersions', 'downloadTemplate']);
 		TestBed.configureTestingModule({
 			imports: [
 				TranslationsModule,
@@ -33,6 +47,8 @@ describe('TranslationsComponent', () => {
 
 	beforeEach(() => {
 		fixture = TestBed.createComponent(TranslationsComponent);
+		remoteConfigServiceSpy.listVersions.and.returnValue(of(versions));
+		remoteConfigServiceSpy.downloadTemplate.and.returnValue(of(version));
 		component = fixture.componentInstance;
 		fixture.detectChanges();
 	});
@@ -42,21 +58,6 @@ describe('TranslationsComponent', () => {
 	});
 
 	it('should handle listVersions success', () => {
-		const version: VersionInfo = {
-			versionNumber: '10',
-			updateOrigin: 'ADMIN_SDK_NODE',
-			updateType: 'INCREMENTAL_UPDATE',
-			updateUser: {
-				name: 'firebase-adminsdk-rx6vt@flutter-news-app-6a808.iam.gserviceaccount.com',
-				email: 'firebase-adminsdk-rx6vt@flutter-news-app-6a808.iam.gserviceaccount.com',
-				imageUrl:
-					'https://lh3.googleusercontent.com/a/ACg8ocLHinnrhpl3Oo1vuRO6E7GWMtcOXfPvYWjVbzOzAsC-=mo',
-			},
-			updateTime: 'Tue, 21 Nov 2023 15:33:45 GMT',
-		};
-		const versions: VersionInfo[] = [version];
-		remoteConfigServiceSpy.listVersions.and.returnValue(of(versions));
-
 		component.getListVersions();
 
 		expect(component.versions).toEqual(versions);
