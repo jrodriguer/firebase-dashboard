@@ -53,7 +53,7 @@ describe('TranslationsComponent', () => {
 		fixture = TestBed.createComponent(TranslationsComponent);
 		remoteConfigServiceSpy.listVersions.and.returnValue(of(versions));
 		remoteConfigServiceSpy.downloadTemplate.and.returnValue(of(version));
-		remoteConfigServiceSpy.updateTemplate.and.returnValue(of(''));
+		remoteConfigServiceSpy.updateTemplate.and.returnValue(of());
 		component = fixture.componentInstance;
 		fixture.detectChanges();
 	});
@@ -103,5 +103,58 @@ describe('TranslationsComponent', () => {
 			formValue.defaultValue,
 			formValue.conditionValue
 		);
+	});
+
+	it('should set versions when changing page', () => {
+		const rangePage: VersionInfo[] = [version];
+
+		component.onChangePage(rangePage);
+
+		expect(component.versions).toEqual(rangePage);
+	});
+
+	it('should sort versions by property', () => {
+		component.items = [version, { ...version, versionNumber: '5' }];
+		component.sortOrder = 1;
+		component.sortProperty = 'versionNumber';
+
+		component.sortBy('versionNumber');
+
+		expect(component.items).toEqual([{ ...version, versionNumber: '5' }, version]);
+	});
+
+	it('should return sort icon based on property', () => {
+		component.sortProperty = 'versionNumber';
+		component.sortOrder = 1;
+
+		const ascendingIcon = component.sortIcon('versionNumber');
+		const descendingIcon = component.sortIcon('otherProperty');
+
+		expect(ascendingIcon).toBe('☝️');
+		expect(descendingIcon).toBe('');
+	});
+
+	it('should download file on downloadFile method call', () => {
+		// Tracks methods.
+		spyOn(window.URL, 'revokeObjectURL');
+		spyOn(document, 'createElement').and.callThrough();
+		spyOn(document.body, 'appendChild').and.callThrough();
+		spyOn(document.body, 'removeChild').and.callThrough();
+		spyOn(window.URL, 'createObjectURL').and.returnValue('fakeURL');
+		spyOn(window, 'open').and.callFake(() => null); // Replaces it with a fake function that does nothing.
+
+		component.downloadFile();
+
+		expect(document.createElement).toHaveBeenCalled();
+		expect(document.body.appendChild).toHaveBeenCalled();
+		expect(document.body.removeChild).toHaveBeenCalled();
+		expect(window.URL.createObjectURL).toHaveBeenCalled();
+		expect(window.URL.revokeObjectURL).toHaveBeenCalled();
+	});
+
+	it('should get current template', () => {
+		component.getCurrentTemplate();
+
+		expect(component.currentTemplate).toEqual(JSON.stringify(version, null, 2));
 	});
 });
