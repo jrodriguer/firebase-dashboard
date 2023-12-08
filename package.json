@@ -16,7 +16,8 @@
 	"lint-staged": {
 		"*.ts": [
 			"prettier --write",
-			"eslint --quiet --fix"
+			"eslint --quiet --fix",
+			"ng test --browsers=ChromeHeadlessNoSandbox"
 		],
 		"*.{json,ts,html}": [
 			"prettier --write --ignore-unknown"
