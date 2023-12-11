@@ -23,7 +23,7 @@ export class MessagingComponent implements OnDestroy {
 
 	public onSubmit(form: FormGroup) {
 		this.messagingSrv
-			.sendMessage(form.value.topic, form.value.title, form.value.message)
+			.sendMessage(form.value.topic, form.value.token, form.value.title, form.value.message)
 			.subscribe();
 	}
 
