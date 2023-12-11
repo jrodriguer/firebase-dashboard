@@ -7,25 +7,17 @@
 				<div class="card-body">
 					<form [formGroup]="messagerForm" (ngSubmit)="onSubmit(messagerForm)">
 						<div class="col">
-							<div class="col">
-								<div class="form-group">
-									<p class="text-start">
-										FCM topic messaging allows you to send a message to multiple devices that have
-										opted in to a particular topic.
-									</p>
-									<label for="title">Title</label>
-									<input
-										type="text"
-										id="title"
-										class="form-control"
-										placeholder="Title of message" />
-								</div>
+							<p class="text-start">
+								FCM topic messaging allows you to send a message to multiple devices that have opted
+								in to a particular topic.
+							</p>
+							<div class="form-group">
+								<label for="title">Title</label>
+								<input type="text" id="title" class="form-control" placeholder="Title of message" />
 							</div>
-							<div class="col">
-								<div class="form-group">
-									<label for="condition">Message</label>
-									<textarea type="text" id="condition" class="form-control"> </textarea>
-								</div>
+							<div class="form-group">
+								<label for="condition">Message</label>
+								<textarea type="text" id="condition" class="form-control"> </textarea>
 							</div>
 						</div>
 						<button type="submit" class="btn btn-info btn-fill pull-right">Send message</button>
