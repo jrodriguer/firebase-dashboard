@@ -2,7 +2,7 @@
 	<app-page-header [heading]="'Translations'" [icon]="'fa-edit'"></app-page-header>
 	<div class="row">
 		<div class="col-lg-8">
-			<div class="card card-default">
+			<div class="card mb-3">
 				<div class="card-header"><i class="fa fa-pencil fa-fw"></i> Updater form</div>
 				<div class="card-body">
 					<form [formGroup]="updaterForm" (ngSubmit)="onSubmit(updaterForm)">
@@ -79,13 +79,13 @@
 			<div class="card card-default">
 				<div class="card-header"><i class="fa fa-upload fa-fw"></i> Publish template</div>
 				<div class="card-body">
-					<form action="">
+					<form>
 						<div class="form-group">
-							<p>
+							<p class="text-start">
 								Publishing a template replaces the entire existing config template with the updated
 								file and increments the template version by one.
 							</p>
-							<input type="file" id="upload-file" class="form-control-file" />
+							<input type="file" class="form-control-file" />
 						</div>
 					</form>
 				</div>
@@ -94,7 +94,7 @@
 		<hr />
 		<div class="col col-xl-6 col-lg-12">
 			<div class="card mb-3">
-				<div class="card-header"><i class="fa fa-code-fork fa-fw"></i> Contol versions</div>
+				<div class="card-header"><i class="fa fa-code-fork fa-fw"></i> Control versions</div>
 				<div class="card-body table-responsive">
 					<p>
 						You can retrieve a list of all stored versions of the Remote Config template, or
@@ -139,19 +139,19 @@
 			</div>
 		</div>
 
-		<div class="col col-xl-6 col-lg-12">
-			<div class="card mb-3">
-				<div class="card-header"><i class="fa fa-code-fork fa-fw"></i> Current template</div>
-				<div class="card-body" id="current-template">
-					@if (currentTemplate) {
-						<code>
-							<pre class="vertical-scroll">{{ currentTemplate | json }}</pre>
-						</code>
-					} @else {
-						<p>No current template available.</p>
-					}
+		@if (currentTemplate) {
+			<ng-container>
+				<div class="col col-xl-6 col-lg-12">
+					<div class="card mb-3">
+						<div class="card-header"><i class="fa fa-code-fork fa-fw"></i> Current template</div>
+						<div class="card-body" id="current-template">
+							<code>
+								<pre class="vertical-scroll">{{ currentTemplate | json }}</pre>
+							</code>
+						</div>
+					</div>
 				</div>
-			</div>
-		</div>
+			</ng-container>
+		}
 	</div>
 </div>
