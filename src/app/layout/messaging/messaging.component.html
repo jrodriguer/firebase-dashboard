@@ -1,26 +1,31 @@
 <div>
 	<app-page-header [heading]="'Translations'" [icon]="'fa-edit'"></app-page-header>
 	<div class="row">
-		<div class="col-lg-8">
+		<div class="col-xl-6 col-lg-12">
 			<div class="card card-default">
 				<div class="card-header"><i class="fa fa-pencil fa-fw"></i> Message form</div>
 				<div class="card-body">
 					<form [formGroup]="messagerForm" (ngSubmit)="onSubmit(messagerForm)">
-						<div class="row">
-							<div class="col-md-5">
+						<div class="col">
+							<div class="col">
 								<div class="form-group">
-									<label for="up-name">Title</label>
+									<p class="text-start">
+										Based on the publish/subscribe model, FCM topic messaging allows you to send a
+										message to multiple devices that have opted in to a particular topic.
+									</p>
+									<label for="title">Title</label>
 									<input type="text" id="title" class="form-control" placeholder="Title message" />
 								</div>
 							</div>
-							<div class="col-md-4">
+							<div class="col">
 								<div class="form-group">
-									<label for="up-condition">Message</label>
-									<input
+									<label for="condition">Message</label>
+									<textarea
 										type="text"
-										id="up-condition"
+										id="condition"
 										class="form-control"
-										placeholder="Expression condition" />
+										placeholder="Expression condition">
+									</textarea>
 								</div>
 							</div>
 						</div>
