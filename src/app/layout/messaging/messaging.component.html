@@ -8,22 +8,47 @@
 					<form [formGroup]="messagerForm" (ngSubmit)="onSubmit(messagerForm)">
 						<div class="col">
 							<p class="text-start">
-								FCM topic messaging allows you to send a message to multiple devices that have opted
-								in to a particular topic.
+								FCM Messaging provides you with a messaging service for push notifications.
 							</p>
-							<div class="form-group">
-								<select class="form-select" aria-label="Topic select">
-									<option selected>Open topic select field</option>
-									<option value="all_users">All Users</option>
-								</select>
+							<div class="container bg-light bg-gradient">
+								<div class="row p-2">
+									<div class="col-xl-9">
+										<p>Topic messaging allows you to send a message to multiple devices:</p>
+									</div>
+									<div class="col-xl-3">
+										<select formControlName="topic" class="form-select" aria-label="Topic select">
+											<option value="all_users">All Users</option>
+										</select>
+									</div>
+								</div>
+
+								<div class="row p-2">
+									<div class="col-xl-9">
+										<p>To single devices, target messages to registration tokens, not topics:</p>
+									</div>
+									<div class="col-xl-3">
+										<input
+											type="text"
+											formControlName="token"
+											class="form-control"
+											placeholder="Device token" />
+									</div>
+								</div>
 							</div>
-							<div class="form-group">
+
+							<div class="form-group mt-10">
 								<label for="title">Title</label>
-								<input type="text" id="title" class="form-control" placeholder="Title of message" />
+								<input
+									type="text"
+									id="title"
+									formControlName="title"
+									class="form-control"
+									placeholder="Title of message" />
 							</div>
 							<div class="form-group">
-								<label for="condition">Message</label>
-								<textarea type="text" id="condition" class="form-control"> </textarea>
+								<label for="message">Message</label>
+								<textarea type="text" formControlName="message" id="message" class="form-control">
+								</textarea>
 							</div>
 						</div>
 						<button type="submit" class="btn btn-info btn-fill pull-right">Send message</button>

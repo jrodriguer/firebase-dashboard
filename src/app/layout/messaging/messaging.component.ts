@@ -14,13 +14,17 @@ export class MessagingComponent implements OnDestroy {
 
 	constructor(private messagingSrv: MessagingService) {
 		this.messagerForm = new FormGroup({
+			topic: new FormControl(''),
+			token: new FormControl(''),
 			title: new FormControl(''),
 			message: new FormControl(''),
 		});
 	}
 
 	public onSubmit(form: FormGroup) {
-		this.messagingSrv.sendMessage(form.value.title, form.value.message).subscribe();
+		this.messagingSrv
+			.sendMessage(form.value.topic, form.value.title, form.value.message)
+			.subscribe();
 	}
 
 	ngOnDestroy(): void {
