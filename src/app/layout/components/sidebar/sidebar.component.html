@@ -18,6 +18,13 @@
 			<i class="fa fa-fw fa-edit"></i>&nbsp;
 			<span>Translations</span>
 		</a>
+		<a
+			[routerLinkActive]="['router-link-active']"
+			[routerLink]="['/profile']"
+			class="list-group-item">
+			<i class="fa fa-fw fa-user"></i>&nbsp;
+			<span>Translations</span>
+		</a>
 	</div>
 
 	<div (click)="toggleCollapsed()" [ngClass]="{ collapsed: collapsed }" class="toggle-button">
