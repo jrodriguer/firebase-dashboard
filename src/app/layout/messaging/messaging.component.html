@@ -36,14 +36,23 @@
 								</div>
 							</div>
 
-							<div class="form-group mt-10">
+							<div
+								class="form-group mt-10"
+								[class.has-error]="title?.invalid && (title?.dirty || title?.touched)">
 								<label for="title">Title</label>
 								<input
 									type="text"
 									id="title"
 									formControlName="title"
 									class="form-control"
-									placeholder="Title of message" />
+									placeholder="Title of message"
+									required />
+
+								@if (!title?.valid && (title?.dirty || title?.touched)) {
+									<div class="invalid-feedback">
+										<div [hidden]="!title?.errors?.['required']">First Name is required</div>
+									</div>
+								}
 							</div>
 							<div class="form-group">
 								<label for="message">Message</label>
@@ -51,7 +60,12 @@
 								</textarea>
 							</div>
 						</div>
-						<button type="submit" class="btn btn-info btn-fill pull-right">Send message</button>
+						<button
+							type="submit"
+							[disabled]="!messagerForm.valid"
+							class="btn btn-info btn-fill pull-right">
+							Send message
+						</button>
 					</form>
 				</div>
 			</div>
