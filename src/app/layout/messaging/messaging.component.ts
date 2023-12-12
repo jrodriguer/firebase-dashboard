@@ -33,10 +33,6 @@ export class MessagingComponent implements OnDestroy {
 	public onSubmit(form: FormGroup) {
 		this.submitted = true;
 
-		if (this.messagerForm.invalid) {
-			return;
-		}
-
 		this.messagingSrv
 			.sendMessage(form.value.topic, form.value.token, form.value.title, form.value.message)
 			.subscribe();
