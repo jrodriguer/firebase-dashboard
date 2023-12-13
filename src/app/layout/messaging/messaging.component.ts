@@ -1,5 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { MessagingService } from 'src/app/core/services/messaging.service';
 
@@ -22,22 +22,27 @@ export class MessagingComponent implements OnDestroy {
 		});
 	}
 
-	get title() {
-		return this.messagerForm.get('title');
-	}
-
-	get message() {
-		return this.messagerForm.get('message');
+	get f(): { [key: string]: AbstractControl } {
+		return this.messagerForm.controls;
 	}
 
 	public onSubmit(form: FormGroup) {
 		this.submitted = true;
+
+		if (this.messagerForm.invalid) {
+			return;
+		}
 
 		this.messagingSrv
 			.sendMessage(form.value.topic, form.value.token, form.value.title, form.value.message)
 			.subscribe();
 
 		alert('SUCCESS!! \n' + JSON.stringify(this.messagerForm.value, null, 4));
+	}
+
+	public onReset(): void {
+		this.submitted = false;
+		this.messagerForm.reset();
 	}
 
 	ngOnDestroy(): void {
