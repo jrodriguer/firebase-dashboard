@@ -22,7 +22,7 @@ export class MessagingComponent implements OnDestroy {
 		});
 	}
 
-	get f(): { [key: string]: AbstractControl } {
+	get controls(): { [key: string]: AbstractControl } {
 		return this.messagerForm.controls;
 	}
 

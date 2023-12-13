@@ -44,11 +44,11 @@
 									formControlName="title"
 									class="form-control"
 									placeholder="Title of message"
-									[ngClass]="{ 'is-invalid': submitted && f['title'].errors }" />
+									[ngClass]="{ 'is-invalid': submitted && controls['title'].errors }" />
 
-								@if (submitted && f['title'].errors) {
+								@if (submitted && controls['title'].errors) {
 									<div class="invalid-feedback">
-										<div [hidden]="!f['title'].errors['required']">Title is required</div>
+										<div [hidden]="!controls['title'].errors['required']">Title is required</div>
 									</div>
 								}
 							</div>
@@ -59,12 +59,14 @@
 									formControlName="message"
 									id="message"
 									class="form-control"
-									[ngClass]="{ 'is-invalid': submitted && f['message'].errors }">
+									[ngClass]="{ 'is-invalid': submitted && controls['message'].errors }">
 								</textarea>
 
-								@if (submitted && f['message'].errors) {
+								@if (submitted && controls['message'].errors) {
 									<div class="invalid-feedback">
-										<div [hidden]="!f['message'].errors['required']">Message is required</div>
+										<div [hidden]="!controls['message'].errors['required']">
+											Message is required
+										</div>
 									</div>
 								}
 							</div>
