@@ -12,7 +12,16 @@
 							id="email"
 							formControlName="email"
 							type="email"
-							required />
+							required
+							[ngClass]="{ 'is-invalid': submitted && controls['email'].errors }" />
+
+						@if (submitted && controls['email'].errors) {
+							<div class="invalid-feedback">
+								<div [hidden]="!controls['email'].errors['required']" class="text-start">
+									Email is required
+								</div>
+							</div>
+						}
 					</div>
 
 					<div class="form-group">
@@ -22,7 +31,15 @@
 							id="password"
 							formControlName="password"
 							type="password"
-							required />
+							[ngClass]="{ 'is-invalid': submitted && controls['password'].errors }" />
+
+						@if (submitted && controls['password'].errors) {
+							<div class="invalid-feedback">
+								<div [hidden]="!controls['password'].errors['required']" class="text-start">
+									Password is required
+								</div>
+							</div>
+						}
 					</div>
 				</div>
 				&nbsp;
