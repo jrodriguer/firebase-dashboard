@@ -8,7 +8,7 @@ import { MessagingService } from '../../core/services/messaging.service';
 import { MessagingComponent } from './messaging.component';
 import { PageHeaderComponent } from '../../shared/modules/page-header/page-header.component';
 
-fdescribe('MessagingComponent', () => {
+describe('MessagingComponent', () => {
 	let component: MessagingComponent;
 	let fixture: ComponentFixture<MessagingComponent>;
 	let messagingService: jasmine.SpyObj<MessagingService>;
