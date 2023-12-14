@@ -10,11 +10,15 @@ import { environment } from 'src/environments/environment';
 export class MessagingService {
 	constructor(private http: HttpClient) {}
 
-	sendMessage(title: string, message: string) {
+	sendMessage(topic: string, token: string, title: string, message: string) {
 		const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
 		return this.http
-			.post<any>(`${environment.apiUrl}/send-message`, { title, body: message }, { headers })
+			.post<string>(
+				`${environment.apiUrl}/send-message`,
+				{ topic, token, title, message },
+				{ headers }
+			)
 			.pipe(
 				catchError(err => {
 					return throwError(() => err);

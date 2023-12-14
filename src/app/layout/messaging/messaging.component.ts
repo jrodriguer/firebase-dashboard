@@ -1,7 +1,8 @@
 import { Component, OnDestroy } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Subject } from 'rxjs';
-import { MessagingService } from 'src/app/core/services/messaging.service';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Subject, takeUntil } from 'rxjs';
+
+import { MessagingService } from '../../core/services/messaging.service';
 
 @Component({
 	selector: 'app-messaging',
@@ -14,11 +15,11 @@ export class MessagingComponent implements OnDestroy {
 	public submitted: boolean = false;
 
 	constructor(private messagingSrv: MessagingService) {
-		this.messagerForm = new FormGroup({
-			topic: new FormControl(''),
-			token: new FormControl(''),
-			title: new FormControl('', [Validators.required]),
-			message: new FormControl('', [Validators.required]),
+		this.messagerForm = new FormBuilder().group({
+			topic: ['all_users'],
+			token: [''],
+			title: ['', Validators.required],
+			message: ['', Validators.required],
 		});
 	}
 
@@ -26,27 +27,30 @@ export class MessagingComponent implements OnDestroy {
 		return this.messagerForm.controls;
 	}
 
-	public onSubmit(form: FormGroup) {
-		this.submitted = true;
+	ngOnDestroy(): void {
+		this.destroy$.next();
+		this.destroy$.complete();
+	}
 
+	public onSubmit(): void {
+		this.submitted = true;
 		if (this.messagerForm.invalid) {
 			return;
 		}
 
 		this.messagingSrv
-			.sendMessage(form.value.topic, form.value.token, form.value.title, form.value.message)
-			.subscribe();
-
-		alert('SUCCESS!! \n' + JSON.stringify(this.messagerForm.value, null, 4));
+			.sendMessage(
+				this.controls['topic'].value,
+				this.controls['token'].value,
+				this.controls['title'].value,
+				this.controls['message'].value
+			)
+			.pipe(takeUntil(this.destroy$))
+			.subscribe(() => alert('SUCCESS!! \n' + JSON.stringify(this.messagerForm.value, null, 4)));
 	}
 
 	public onReset(): void {
 		this.submitted = false;
 		this.messagerForm.reset();
-	}
-
-	ngOnDestroy(): void {
-		this.destroy$.next();
-		this.destroy$.complete();
 	}
 }

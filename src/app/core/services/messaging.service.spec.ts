@@ -24,11 +24,15 @@ describe('MessagingService', () => {
 
 	it('#sendMessage should retrive successfuly response', () => {
 		const messageMock = {
+			topic: 'topic',
+			token: '',
 			title: 'Title',
 			body: 'Message',
 		};
 
-		service.sendMessage(messageMock.title, messageMock.body).subscribe();
+		service
+			.sendMessage(messageMock.topic, messageMock.token, messageMock.title, messageMock.body)
+			.subscribe();
 
 		const req = httpTestingController.expectOne(`${environment.apiUrl}/send-message`);
 		expect(req.request.method).toEqual('POST');
