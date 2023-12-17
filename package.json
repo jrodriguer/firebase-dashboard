@@ -9,17 +9,15 @@
 		"watch": "ng build --watch --configuration development",
 		"test": "ng test",
 		"lint": "eslint src/",
-		"prettier": "npx prettier --write .",
-		"lint-staged": "lint-staged",
-		"prepare": "husky install"
+		"prettier:check": "prettier --config .prettierrc --check \"src/**/*.{ts,css,html}\"",
+		"prepare": "husky install",
+		"pre-commit": "lint-staged",
+		"pre-push": "npm run test"
 	},
 	"lint-staged": {
-		"*.ts": [
-			"prettier --write",
-			"eslint --quiet --fix"
-		],
-		"*.{json,ts,html}": [
-			"prettier --write --ignore-unknown"
+		"src/**/*.{ts,css,html}": [
+			"eslint --quiet --fix",
+			"prettier --write"
 		]
 	},
 	"private": true,
