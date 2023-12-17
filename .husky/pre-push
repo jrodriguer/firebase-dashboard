@@ -2,3 +2,10 @@
 . "$(dirname -- "$0")/_/husky.sh"
 
 npm run pre-push
+
+if [ $? -ne 0 ]; then
+  echo "Tests failed. Aborting the push."
+  exit 1
+fi
+
+exit 0
