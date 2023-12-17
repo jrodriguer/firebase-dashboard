@@ -12,13 +12,12 @@
 		"prettier:check": "prettier --config .prettierrc --check \"src/**/*.{ts,css,html}\"",
 		"prepare": "husky install",
 		"pre-commit": "lint-staged",
-		"pre-push": "ng build --prod"
+		"pre-push": "ng test --browsers=ChromeHeadless --watch=false"
 	},
 	"lint-staged": {
 		"src/**/*.{ts,css,html}": [
 			"eslint --quiet --fix",
-			"prettier --write",
-		 	"npm run test --watchAll=false"
+			"prettier --write"
 		]
 	},
 	"private": true,
