@@ -3,14 +3,14 @@
 
 npm run pre-push
 
-# Capture the exit code of the test command
-test_exit_code=$?
+# # Capture the exit code of the test command
+# test_exit_code=$?
 
-# Check the exit code
-if [ $test_exit_code -eq 0 ]; then
-  echo "Tests passed. Proceeding with the push."
-  exit 0
-else
-  echo "Tests failed. Aborting the push."
-  exit 1
-fi
+# # Check the exit code
+# if [ $test_exit_code -eq 0 ]; then
+#   echo "Tests passed. Proceeding with the push."
+#   exit 0
+# else
+#   echo "Tests failed. Aborting the push."
+#   exit 1
+# fi
