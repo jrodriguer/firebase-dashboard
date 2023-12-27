@@ -34,6 +34,19 @@ export class RemoteConfigService {
 		);
 	}
 
+	public publishTemplate(file: File): Observable<string> {
+		const formData: FormData = new FormData();
+		formData.append('file', file);
+
+		const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+		return this.http.post<string>(`${environment.apiUrl}/publish-template`, file, { headers }).pipe(
+			catchError(err => {
+				return throwError(() => err);
+			})
+		);
+	}
+
 	public updateTemplate(
 		name: string,
 		expression: string,

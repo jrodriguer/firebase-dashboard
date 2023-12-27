@@ -79,17 +79,22 @@
 			<div class="card card-default">
 				<div class="card-header"><i class="fa fa-upload fa-fw"></i> Publish template</div>
 				<div class="card-body">
-					<form>
-						<div class="col">
-							<p class="text-start">
-								Publishing a template replaces the entire existing config template with the updated
-								file and increments the template version by one.
-							</p>
-							<div class="form-group">
-								<input type="file" class="form-control-file" />
-							</div>
+					<div class="col">
+						<p class="text-start">
+							Publishing a template replaces the entire existing config template with the updated
+							file and increments the template version by one.
+						</p>
+						<div class="form-group">
+							<input type="file" class="form-control-file" (change)="onFileSelected($event)" />
 						</div>
-					</form>
+						<button
+							type="submit"
+							class="btn btn-info btn-fill pull-right"
+							[disabled]="!currentFile"
+							(click)="upload()">
+							Upload
+						</button>
+					</div>
 				</div>
 			</div>
 		</div>

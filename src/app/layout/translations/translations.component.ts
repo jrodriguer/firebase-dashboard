@@ -10,6 +10,7 @@ import { VersionInfo } from 'src/app/core/models/remote-config.model';
 	styleUrls: ['./translations.component.scss'],
 })
 export class TranslationsComponent implements OnInit, OnDestroy {
+	public currentFile: File | undefined;
 	public versions: Array<VersionInfo> = [];
 	public updaterForm: FormGroup;
 	private refreshInterval$ = interval(10000);
@@ -112,6 +113,15 @@ export class TranslationsComponent implements OnInit, OnDestroy {
 			this.currentTemplate = JSON.stringify(template, null, 2);
 		});
 	}
+
+	public onFileSelected(event: Event) {
+		const inputElement = event.target as HTMLInputElement;
+		if (inputElement.files && inputElement.files.length > 0) {
+			this.currentFile = inputElement.files[0];
+		}
+	}
+
+	public upload() {}
 
 	public downloadFile(): void {
 		const filename = 'current_template.json';
